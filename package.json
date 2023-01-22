@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build --no-daemon",
+    "dev": "turbo run dev --parallel --no-daemon",
+    "lint": "turbo run lint --no-cache --no-daemon",
+    "format": "prettier --write \"**/*.{js,ts,tsx,json,md}\""
+  },
+  "devDependencies": {
+    "eslint": "8.29.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.1.0",
+    "prettier": "2.8.1",
+    "turbo": "latest",
+    "typescript": "4.9.4"
+  },
+  "lint-staged": {
+    "apps/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "packages/bible-*/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
+  "packageManager": "yarn@1.22.17"
+}
