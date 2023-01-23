@@ -31,10 +31,11 @@ export default function Home() {
             <select
               id="languageSelect"
               className="select select-bordered select-sm max-w-xs"
+              value={languageId}
               onChange={(e) => setLanguageId(e.target.value)}
             >
               {languages.map((language) => (
-                <option key={language.id} value={language.id} selected={languageId === language.id}>
+                <option key={language.id} value={language.id}>
                   {language.name === language.nameLocal
                     ? language.name
                     : `${language.name} (${language.nameLocal})`}
