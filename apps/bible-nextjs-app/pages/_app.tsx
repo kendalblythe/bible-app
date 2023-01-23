@@ -12,22 +12,16 @@ import '../styles/globals.css';
 
 const queryClient = new QueryClient();
 
-const messages = {
-  en,
-  es,
-};
-
-const getDirection = (locale: string) => (isRtlLang(locale) ? 'rtl' : 'ltr');
+const messages = { en, es };
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  console.info(`locale = ${router.locale}`);
   const locale = router.locale ?? 'en';
   return (
     <QueryClientProvider client={queryClient}>
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <IntlProvider locale={locale} messages={(messages as any)[locale]}>
-        <Component {...pageProps} dir={getDirection(locale)} />
+        <Component {...pageProps} dir={isRtlLang(locale) ? 'rtl' : 'ltr'} />
       </IntlProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
