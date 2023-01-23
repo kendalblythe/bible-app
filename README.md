@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The <a href=https://en.wikipedia.org/wiki/Bible">Bible</a> is a collection of scriptures that are
+The <a href="https://en.wikipedia.org/wiki/Bible">Bible</a> is a collection of scriptures that are
 held sacred in Christianity, Judaism, and many other religions. This project is a monorepo
 containing the following apps and packages for implementing the Bible web application.
 
