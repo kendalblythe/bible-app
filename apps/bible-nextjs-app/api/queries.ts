@@ -1,18 +1,19 @@
 import { AxiosError } from 'axios';
 import { useQuery, UseQueryOptions } from 'react-query';
 import axios from './axios';
-import { BibleSummary } from './types';
-import { getLatestBibleVersions } from '../utils/bible';
+import { BiblesAndLanguages } from './types';
+import { getLanguages, getLatestBibleVersions } from '../utils/bible';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 
-export const useBiblesQuery = (options?: QueryOptions<BibleSummary[]>) =>
+export const useBiblesAndLanguagesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
   useQuery(
     ['bibles'],
     async () => {
       const response = await axios.get('/bibles');
-      const bibles: BibleSummary[] = response.data.data;
-      return getLatestBibleVersions(bibles);
+      const bibles = getLatestBibleVersions(response.data.data);
+      const languages = getLanguages(bibles);
+      return { bibles, languages };
     },
     {
       cacheTime: Infinity,

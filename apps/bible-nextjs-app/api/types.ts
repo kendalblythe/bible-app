@@ -30,3 +30,8 @@ export interface BibleSummary extends ResourceSummary {
   updatedAt: string;
   audioBibles: AudioBibleSummary[];
 }
+
+export interface BiblesAndLanguages {
+  bibles: BibleSummary[];
+  languages: Language[];
+}

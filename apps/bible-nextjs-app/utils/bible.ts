@@ -1,20 +1,17 @@
 import { BibleSummary, Language } from '../api/types';
-import { sortByName } from './sort';
+import { sortBibles, sortByName } from './sort';
 
 export const getLatestBibleVersions = (bibles: BibleSummary[]): BibleSummary[] => {
-  const bibleMap = new Map<string, BibleSummary>();
-  const dblIds: string[] = [];
+  sortBibles(bibles);
+  const dblIdSet = new Set<string>();
+  const latestBibles: BibleSummary[] = [];
   for (const bible of bibles) {
-    const bible2 = bibleMap.get(bible.dblId);
-    if (bible2) {
-      // keep latest bible version
-      if (bible.id > bible2.id) bibleMap.set(bible.dblId, bible);
-    } else {
-      bibleMap.set(bible.dblId, bible);
-      dblIds.push(bible.dblId);
+    if (!dblIdSet.has(bible.dblId)) {
+      dblIdSet.add(bible.dblId);
+      latestBibles.push(bible);
     }
   }
-  return dblIds.map((dblId) => bibleMap.get(dblId) as BibleSummary);
+  return latestBibles;
 };
 
 export const getLanguages = (bibles: BibleSummary[]): Language[] => {

@@ -1,12 +1,16 @@
 import Head from 'next/head';
-import { useMemo, useState } from 'react';
-import { useBiblesQuery } from '../api/queries';
-import { getLanguages } from '../utils/bible';
+import { useState } from 'react';
+import { useBiblesAndLanguagesQuery } from '../api/queries';
 
 export default function Home() {
-  const { data: bibles } = useBiblesQuery();
-  const languages = useMemo(() => getLanguages(bibles ?? []), [bibles]);
+  // queries
+  const { data } = useBiblesAndLanguagesQuery();
+  const bibles = data?.bibles ?? [];
+  const languages = data?.languages ?? [];
+
+  // state
   const [languageId, setLanguageId] = useState<string>('eng');
+
   return (
     <>
       <Head>
@@ -14,18 +18,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/bible.png" />
       </Head>
-      <header className="sticky top-0 px-2 border-b-2 border-blue-900">
-        <div className="navbar bg-base-100">
+
+      <header className="sticky top-0 bg-base-100 z-10">
+        <div className="navbar min-h-0 px-4">
           <div className="flex-1">
-            <h1 className="text-3xl font-bold">Versions</h1>
+            <h1 className="text-2xl font-bold">Versions</h1>
           </div>
           <div className="flex-none gap-2">
-            <label className="label" htmlFor="languageSelect">
+            <label className="label label-text" htmlFor="languageSelect">
               Language:
             </label>
             <select
               id="languageSelect"
-              className="select select-bordered select-primary max-w-xs"
+              className="select select-bordered select-sm max-w-xs"
               onChange={(e) => setLanguageId(e.target.value)}
             >
               {languages.map((language) => (
@@ -38,16 +43,18 @@ export default function Home() {
             </select>
           </div>
         </div>
+        <div className="divider h-px m-0"></div>
       </header>
-      <main className="p-4">
+
+      <main className="p-2">
         <ul className="menu bg-base-100">
           {bibles
             ?.filter((bible) => bible.language.id === languageId)
             .map((bible) => (
               <li key={bible.id}>
-                <a>
-                  <div className="font-medium">{bible.abbreviation}</div>
-                  <div className="text-sm label-text">{bible.nameLocal}</div>
+                <a className="block">
+                  <div className="font-medium">{bible.abbreviationLocal}</div>
+                  <div className="label label-text p-0">{bible.nameLocal}</div>
                 </a>
               </li>
             ))}
