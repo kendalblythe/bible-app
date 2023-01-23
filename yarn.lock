@@ -295,6 +295,11 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/rtl-detect@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/rtl-detect/-/rtl-detect-1.0.0.tgz#5791e18a111f2b8b5b328160af97f3991a5697a5"
+  integrity sha512-lyYh44YgrejEK9/5rhASghvRUOxrSJyyyQmqK7L6F/V5qs6PY1RfCi1VbjSkY6kuDt7lzQyhd006slhda4Oypg==
+
 "@types/scheduler@*":
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
