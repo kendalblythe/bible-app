@@ -1,8 +1,11 @@
-import Head from 'next/head';
 import { useState } from 'react';
+import Head from 'next/head';
+import { useIntl } from 'react-intl';
 import { useBiblesAndLanguagesQuery } from '../api/queries';
 
 export default function Home() {
+  const intl = useIntl();
+
   // queries
   const { data } = useBiblesAndLanguagesQuery();
   const bibles = data?.bibles ?? [];
@@ -22,11 +25,13 @@ export default function Home() {
       <header className="sticky top-0 bg-base-100 z-10">
         <div className="navbar min-h-0 px-4">
           <div className="flex-1">
-            <h1 className="text-2xl font-bold">Versions</h1>
+            <h1 className="text-2xl font-bold">
+              {intl.formatMessage({ id: 'page.home.versions.title' })}
+            </h1>
           </div>
           <div className="flex-none gap-2">
             <label className="label label-text" htmlFor="languageSelect">
-              Language:
+              {intl.formatMessage({ id: 'page.home.language.label' })}
             </label>
             <select
               id="languageSelect"
@@ -53,10 +58,13 @@ export default function Home() {
             ?.filter((bible) => bible.language.id === languageId)
             .map((bible) => (
               <li key={bible.id}>
-                <a className="block">
+                <button
+                  className="block btn-ghost text-start"
+                  onClick={() => console.info(bible.name)}
+                >
                   <div className="font-medium">{bible.abbreviationLocal}</div>
-                  <div className="label label-text p-0">{bible.nameLocal}</div>
-                </a>
+                  <div className="block label label-text p-0">{bible.nameLocal}</div>
+                </button>
               </li>
             ))}
         </ul>
