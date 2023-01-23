@@ -7,12 +7,13 @@ import { isRtlLang } from 'rtl-detect';
 
 import en from '../lang/en.json';
 import es from '../lang/es.json';
+import he from '../lang/he.json';
 
 import '../styles/globals.css';
 
 const queryClient = new QueryClient();
 
-const messages = { en, es };
+const messages = { en, es, he };
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

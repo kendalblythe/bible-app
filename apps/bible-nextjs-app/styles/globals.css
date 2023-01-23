@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* fix rtl select down arrow position */
+[dir='rtl'] .select {
+  background-position: 16px calc(1px + 50%), 20px calc(1px + 50%);
+}

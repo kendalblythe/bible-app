@@ -2081,6 +2081,11 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
+lodash.flatmap@^4.5.0:
+  version "4.5.0"
+  resolved "https://artifact.unx.sas.com:443/artifactory/api/npm/re-common-npm-virtual/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
+  integrity sha512-/OcpcAGWlrZyoHGeHh3cAoa6nGdX6QYtmzNP84Jqol6UEQQ2gIaU3H+0eICcjcKGl0/XF8LWOujNn9lffsnaOg==
+
 lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
@@ -2922,6 +2927,13 @@ synckit@^0.8.4:
   dependencies:
     "@pkgr/utils" "^2.3.1"
     tslib "^2.4.0"
+
+tailwindcss-flip@1.0.0:
+  version "1.0.0"
+  resolved "https://artifact.unx.sas.com:443/artifactory/api/npm/re-common-npm-virtual/tailwindcss-flip/-/tailwindcss-flip-1.0.0.tgz#60050c725e03113b4afab1593531c7c16209441d"
+  integrity sha512-7zGjiIgw11cKcVKp8zz1YJQZ6H/bbdaENRo1Y9oXffwilZh0HhJFOM1daXrKIhOXJbpPgIVJa5yQ2vrZA+D8TQ==
+  dependencies:
+    lodash.flatmap "^4.5.0"
 
 tailwindcss@3.2.4, tailwindcss@^3:
   version "3.2.4"
