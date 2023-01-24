@@ -9,6 +9,7 @@ import {
   PageHeader,
   PageHeading,
   PageMain,
+  PageSpinner,
   Select,
 } from '../components';
 import { getLanguageDisplayName } from '../utils/bible';
@@ -17,7 +18,7 @@ export default function Home() {
   const intl = useIntl();
 
   // queries
-  const { data } = useBiblesAndLanguagesQuery();
+  const { data, isLoading } = useBiblesAndLanguagesQuery();
   const bibles = data?.bibles ?? [];
   const languages = data?.languages ?? [];
 
@@ -66,6 +67,8 @@ export default function Home() {
             ))}
         </List>
       </PageMain>
+
+      {isLoading ? <PageSpinner /> : null}
     </>
   );
 }
