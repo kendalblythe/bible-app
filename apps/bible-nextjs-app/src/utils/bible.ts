@@ -23,3 +23,9 @@ export const getLanguages = (bibles: BibleSummary[]): Language[] => {
   sortByName(languages);
   return languages;
 };
+
+export const getLanguageDisplayName = (language: Language): string => {
+  return language.name === language.nameLocal
+    ? language.name
+    : `${language.name} (${language.nameLocal})`;
+};
