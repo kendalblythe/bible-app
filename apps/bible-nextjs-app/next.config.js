@@ -5,9 +5,6 @@ const nextConfig = {
     locales: ["en", "es", "he"],
     defaultLocale: "en",
   },
-  daisyui: {
-    rtl: true,
-  },
 };
 
 export default nextConfig;
