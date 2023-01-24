@@ -5,5 +5,5 @@ export interface PageHeadingProps {
 }
 
 export const PageHeading = ({ children }: PageHeadingProps) => (
-  <h1 className="text-2xl font-bold">{children}</h1>
+  <h1 className="text-2xl font-bold pb-1">{children}</h1>
 );

@@ -1,4 +1,6 @@
 {
   "page.home.versions.title": "Versions",
-  "page.home.language.label": "Language:"
+  "page.home.language.label": "Language:",
+  "page.home.language.aria.label": "Language",
+  "page.home.language.tooltip": "Select a language"
 }

@@ -37,13 +37,16 @@ export default function Home() {
         <div className="flex-1">
           <PageHeading>{intl.formatMessage({ id: 'page.home.versions.title' })}</PageHeading>
         </div>
-        <div className="flex-none gap-2">
-          <Label htmlFor="languageSelect">
+        <div className="flex-none gap-2 ml-4">
+          <Label htmlFor="languageSelect" className="hidden sm:flex">
             {intl.formatMessage({ id: 'page.home.language.label' })}
           </Label>
           <Select
             id="languageSelect"
             value={languageId}
+            ariaLabel={intl.formatMessage({ id: 'page.home.language.aria.label' })}
+            title={intl.formatMessage({ id: 'page.home.language.tooltip' })}
+            className="max-w-[12rem] sm:max-w-xs"
             onChange={(e) => setLanguageId(e.target.value)}
           >
             {languages.map((language) => (
