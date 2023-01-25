@@ -4,9 +4,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { IntlProvider } from 'react-intl';
 
-import en from '../lang/en.json';
-import es from '../lang/es.json';
-import he from '../lang/he.json';
+import en from '../locales/en.json';
+import es from '../locales/es.json';
+import he from '../locales/he.json';
 
 import '../styles/globals.css';
 
