@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import Head from 'next/head';
+
 import { useBiblesAndLanguagesQuery } from '../api/queries';
 import {
   ButtonListItem,

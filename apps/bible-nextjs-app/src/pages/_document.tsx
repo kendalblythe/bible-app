@@ -1,4 +1,5 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Head, Html, Main, NextScript } from 'next/document';
+
 import { isRtlLang } from 'rtl-detect';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

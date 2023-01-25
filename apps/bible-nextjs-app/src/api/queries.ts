@@ -1,8 +1,10 @@
-import { AxiosError } from 'axios';
 import { useQuery, UseQueryOptions } from 'react-query';
+
+import { AxiosError } from 'axios';
+
+import { getLanguages, getLatestBibleVersions } from '../utils/bible';
 import axios from './axios';
 import { BiblesAndLanguages } from './types';
-import { getLanguages, getLatestBibleVersions } from '../utils/bible';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 

@@ -9,4 +9,7 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'always',
   proseWrap: 'always',
+  importOrder: ['^react(.*)$', '^next(.*)$', '<THIRD_PARTY_MODULES>', '^[./]'],
+  importOrderSeparation: true,
+  importOrderCaseInsensitive: true,
 };
