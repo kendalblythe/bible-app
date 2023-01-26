@@ -22,7 +22,6 @@ export interface BibleSummary extends ResourceSummary {
   abbreviationLocal: string;
   language: Language;
   countries: Country[];
-
   description: string;
   descriptionLocal: string;
   relatedDbl: string;
@@ -31,7 +30,29 @@ export interface BibleSummary extends ResourceSummary {
   audioBibles: AudioBibleSummary[];
 }
 
+export interface Bible extends BibleSummary {
+  copyright: string;
+  info: string;
+}
+
 export interface BiblesAndLanguages {
   bibles: BibleSummary[];
   languages: Language[];
+}
+
+export interface ChapterSummary {
+  id: string;
+  bibleId: string;
+  number: string;
+  bookId: string;
+  reference: string;
+}
+
+export interface Book {
+  id: string;
+  bibleId: string;
+  abbreviation: string;
+  name: string;
+  nameLong: string;
+  chapters: ChapterSummary[];
 }

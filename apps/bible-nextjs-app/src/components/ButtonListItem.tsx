@@ -1,13 +1,16 @@
 import { MouseEventHandler, ReactNode } from 'react';
 
+import { clsx } from 'clsx';
+
 export interface ButtonListItemProps {
   children: ReactNode;
+  className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const ButtonListItem = ({ children, onClick }: ButtonListItemProps) => (
+export const ButtonListItem = ({ children, className, onClick }: ButtonListItemProps) => (
   <li>
-    <button className="block btn-ghost text-start" onClick={onClick}>
+    <button className={clsx('btn-ghost text-start', className)} onClick={onClick}>
       {children}
     </button>
   </li>
