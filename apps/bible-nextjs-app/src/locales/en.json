@@ -3,6 +3,6 @@
   "BiblesView.language.select.label": "Language:",
   "BiblesView.language.select.aria.label": "Language",
   "BiblesView.language.select.tip.label": "Select a language",
-  "BooksView.page.title": "{bible} Books",
+  "BooksView.page.title": "Books",
   "PageHeading.back.button.label": "Go back"
 }
