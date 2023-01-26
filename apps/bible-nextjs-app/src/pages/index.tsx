@@ -1,10 +1,10 @@
 import Head from 'next/head';
 
-import { useBibleStore } from '../hooks';
+import { useGlobalStore } from '../hooks';
 import { BiblesView, BooksView } from '../views';
 
 export default function Home() {
-  const { bibleId } = useBibleStore();
+  const { bibleId } = useGlobalStore();
 
   return (
     <>

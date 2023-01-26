@@ -7,29 +7,25 @@ import {
   PageMain,
   PageSpinner,
 } from '../components';
-import { useBibleStore, useTranslation } from '../hooks';
+import { useGlobalStore, useTranslation } from '../hooks';
 
 export const BooksView = () => {
   const { t } = useTranslation();
 
   // state
-  const { bibleId, setBookId } = useBibleStore();
+  const { bibleId, setBibleId, setBookId } = useGlobalStore();
 
   // queries
-  const { data: bible, isLoading: isBibleLoading } = useBibleQuery(bibleId, {
-    enabled: !!bibleId,
-  });
-  const { data: books, isLoading: isBooksLoading } = useBooksQuery(bibleId, {
-    enabled: !!bibleId,
-  });
+  const { data: bible, isLoading: isBibleLoading } = useBibleQuery(bibleId);
+  const { data: books, isLoading: isBooksLoading } = useBooksQuery(bibleId);
   const isLoading = isBibleLoading || isBooksLoading;
 
   return (
     <>
       <PageHeader>
         <div className="flex-1">
-          <PageHeading>
-            {t('bookspage.books.title', {
+          <PageHeading onBackClick={() => setBibleId(undefined)}>
+            {t('BooksView.page.title', {
               bible: bible?.abbreviationLocal,
             })}
           </PageHeading>

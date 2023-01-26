@@ -9,14 +9,14 @@ import {
   PageSpinner,
   Select,
 } from '../components';
-import { useBibleStore, useTranslation } from '../hooks';
+import { useGlobalStore, useTranslation } from '../hooks';
 import { getLanguageDisplayName } from '../utils/bible';
 
 export const BiblesView = () => {
   const { t } = useTranslation();
 
   // state
-  const { languageId, setLanguageId, setBibleId } = useBibleStore();
+  const { languageId, setLanguageId, setBibleId } = useGlobalStore();
 
   // queries
   const { data, isLoading } = useBiblesAndLanguagesQuery();
@@ -27,17 +27,17 @@ export const BiblesView = () => {
     <>
       <PageHeader>
         <div className="flex-1">
-          <PageHeading>{t('biblespage.versions.title')}</PageHeading>
+          <PageHeading>{t('BiblesView.page.title')}</PageHeading>
         </div>
         <div className="flex-none gap-2 ml-4">
           <Label htmlFor="languageSelect" className="hidden sm:flex">
-            {t('biblespage.language.label')}
+            {t('BiblesView.language.select.label')}
           </Label>
           <Select
             id="languageSelect"
             value={languageId}
-            ariaLabel={t('biblespage.language.aria.label')}
-            title={t('biblespage.language.tooltip')}
+            ariaLabel={t('BiblesView.language.select.aria.label')}
+            title={t('BiblesView.language.select.tip.label')}
             className="max-w-[12rem] sm:max-w-xs"
             onChange={(e) => setLanguageId(e.target.value)}
           >

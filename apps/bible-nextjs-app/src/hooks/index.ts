@@ -1,3 +1,4 @@
-export * from './useBibleStore';
+export * from './useGlobalStore';
+export * from './useLocaleDir';
 export * from './useLocalStorageState';
 export * from './useTranslation';

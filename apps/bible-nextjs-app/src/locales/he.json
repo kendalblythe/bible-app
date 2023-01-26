@@ -1,6 +1,8 @@
 {
-  "biblespage.versions.title": "גרסאות",
-  "biblespage.language.label": "שפה:",
-  "biblespage.language.aria.label": "שפה",
-  "biblespage.language.tooltip": "בחר שפה"
+  "BiblesView.page.title": "גרסאות",
+  "BiblesView.language.select.label": "שפה:",
+  "BiblesView.language.select.aria.label": "שפה",
+  "BiblesView.language.select.tip.label": "בחר שפה",
+  "BooksView.page.title": "{bible} Books",
+  "PageHeading.back.button.label": "Go back"
 }

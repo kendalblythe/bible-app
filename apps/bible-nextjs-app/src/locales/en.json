@@ -1,7 +1,8 @@
 {
-  "biblespage.versions.title": "Versions",
-  "biblespage.language.label": "Language:",
-  "biblespage.language.aria.label": "Language",
-  "biblespage.language.tooltip": "Select a language",
-  "bookspage.books.title": "{bible} Books"
+  "BiblesView.page.title": "Versions",
+  "BiblesView.language.select.label": "Language:",
+  "BiblesView.language.select.aria.label": "Language",
+  "BiblesView.language.select.tip.label": "Select a language",
+  "BooksView.page.title": "{bible} Books",
+  "PageHeading.back.button.label": "Go back"
 }
