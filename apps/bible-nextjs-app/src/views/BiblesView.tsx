@@ -67,3 +67,5 @@ export const BiblesView = () => {
     </>
   );
 };
+
+export default BiblesView;
