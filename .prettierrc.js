@@ -9,7 +9,15 @@ module.exports = {
   bracketSpacing: true,
   arrowParens: 'always',
   proseWrap: 'always',
-  importOrder: ['^react(.*)$', '^next(.*)$', '<THIRD_PARTY_MODULES>', '^[./]'],
+  importOrder: [
+    '^react(.*)$',
+    '^next(.*)$',
+    '<THIRD_PARTY_MODULES>',
+    '^[./].*(?<!.(css|scss|json|properties))$',
+    '.(json)$',
+    '.(properties)$',
+    '.(css|scss)$',
+  ],
   importOrderSeparation: true,
   importOrderCaseInsensitive: true,
 };

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import en from '../locales/en.json';
 import es from '../locales/es.json';
 import he from '../locales/he.json';
+
 import '../styles/globals.css';
 
 const queryClient = new QueryClient();
