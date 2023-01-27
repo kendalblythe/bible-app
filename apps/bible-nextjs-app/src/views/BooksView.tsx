@@ -1,8 +1,3 @@
-import ReactMarkdown from 'react-markdown';
-
-import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
-
 import { useBibleQuery, useBooksQuery } from '../api/queries';
 import {
   ButtonListItem,
@@ -12,6 +7,8 @@ import {
   PageMain,
   PageSpinner,
 } from '../components';
+import { FooterSection } from '../components/FooterSection';
+import { PageFooter } from '../components/PageFooter';
 import { useGlobalStore, useTranslation } from '../hooks';
 
 export const BooksView = () => {
@@ -42,7 +39,6 @@ export const BooksView = () => {
               </span>
             </div>
           </PageHeader>
-
           <PageMain>
             <List>
               {books?.map((book) => (
@@ -51,26 +47,11 @@ export const BooksView = () => {
                 </ButtonListItem>
               ))}
             </List>
-            <hr className="m-4" />
-            <div className="mx-8 text-center markdown text-sm">
-              <div className="font-medium mt-4 mb-1">About</div>
-              <div>
-                <ReactMarkdown rehypePlugins={[rehypeRaw]} linkTarget="_blank">
-                  {bible.info}
-                </ReactMarkdown>
-              </div>
-              <div className="font-medium mt-4 mb-1">Copyright</div>
-              <div>
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  rehypePlugins={[rehypeRaw]}
-                  linkTarget="_blank"
-                >
-                  {bible.copyright}
-                </ReactMarkdown>
-              </div>
-            </div>
           </PageMain>
+          <PageFooter>
+            {bible.info ? <FooterSection title={'About'} text={bible.info} /> : null}
+            <FooterSection title={'Copyright'} text={bible.copyright} />
+          </PageFooter>{' '}
         </>
       ) : null}
 
