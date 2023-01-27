@@ -3,9 +3,9 @@ import { useQuery, UseQueryOptions } from 'react-query';
 
 import { AxiosError } from 'axios';
 
-import { getLanguages, getLatestBibleVersions } from '../utils/bible';
+import { getBookGroupings, getLanguages, getLatestBibleVersions } from '../utils/bible';
 import axios from './axios';
-import { Bible, BiblesAndLanguages, Book } from './types';
+import { Bible, BiblesAndLanguages, BooksAndGroupings, BookSummary } from './types';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 
@@ -15,7 +15,7 @@ const defaultOptions = {
   retry: false,
 };
 
-export const useBiblesAndLanguagesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
+export const useBiblesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
   useQuery(
     ['bibles'],
     async () => {
@@ -44,12 +44,16 @@ export const useBibleQuery = (bibleId: string | undefined, options?: QueryOption
     }
   );
 
-export const useBooksQuery = (bibleId: string | undefined, options?: QueryOptions<Book[]>) =>
+export const useBooksQuery = (
+  bibleId: string | undefined,
+  options?: QueryOptions<BooksAndGroupings>
+) =>
   useQuery(
     ['bibles', bibleId!, 'books'],
     async () => {
       const response = await axios.get(`/bibles/${bibleId!}/books`);
-      return response.data.data as Book[];
+      const books = response.data.data as BookSummary[];
+      return getBookGroupings(books);
     },
     {
       ...defaultOptions,

@@ -48,11 +48,21 @@ export interface ChapterSummary {
   reference: string;
 }
 
-export interface Book {
+export interface BookSummary {
   id: string;
   bibleId: string;
   abbreviation: string;
   name: string;
   nameLong: string;
+}
+
+export interface Book extends BookSummary {
   chapters: ChapterSummary[];
+}
+
+export interface BooksAndGroupings {
+  books: BookSummary[];
+  oldTestamentBooks: BookSummary[];
+  newTestamentBooks: BookSummary[];
+  apocryphaBooks: BookSummary[];
 }

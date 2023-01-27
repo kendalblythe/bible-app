@@ -1,12 +1,7 @@
+import { ErrorView } from '.';
 import { useBibleQuery, useBooksQuery } from '../api/queries';
-import {
-  ButtonListItem,
-  List,
-  PageHeader,
-  PageHeading,
-  PageMain,
-  PageSpinner,
-} from '../components';
+import { BookSummary } from '../api/types';
+import { BookList, PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
 import { FooterSection } from '../components/FooterSection';
 import { PageFooter } from '../components/PageFooter';
 import { useGlobalStore, useTranslation } from '../hooks';
@@ -18,40 +13,79 @@ export const BooksView = () => {
   const { bibleId, setBibleId, setBookId } = useGlobalStore();
 
   // queries
-  const { data: bible, isLoading: isBibleLoading } = useBibleQuery(bibleId);
-  const { data: books, isLoading: isBooksLoading } = useBooksQuery(bibleId);
-  const isLoading = isBibleLoading || isBooksLoading;
+  const bibleQueryResult = useBibleQuery(bibleId);
+  const booksQueryResult = useBooksQuery(bibleId);
 
+  const bible = bibleQueryResult.data;
+  const oldTestamentBooks = booksQueryResult.data?.oldTestamentBooks;
+  const newTestamentBooks = booksQueryResult.data?.newTestamentBooks;
+  const apocryphaBooks = booksQueryResult.data?.apocryphaBooks;
+  const isLoading = bibleQueryResult.isLoading || booksQueryResult.isLoading;
+  const isError = bibleQueryResult.isError || booksQueryResult.isError;
+  const bookGroupCount =
+    getBookGroupCount(oldTestamentBooks) +
+    getBookGroupCount(newTestamentBooks) +
+    getBookGroupCount(apocryphaBooks);
+
+  if (isError) return <ErrorView />;
   return (
     <>
-      {bible ? (
+      <PageHeader>
+        <div className="flex-1">
+          <PageHeading onBackClick={() => setBibleId(undefined)}>
+            {t('BooksView.page.title')}
+          </PageHeading>
+        </div>
+        {bible ? (
+          <div className="flex-none gap-2 ml-4">
+            <span className="badge badge-lg" title={bible.nameLocal}>
+              {bible.abbreviationLocal}
+            </span>
+          </div>
+        ) : null}
+      </PageHeader>
+
+      {bible && oldTestamentBooks && newTestamentBooks && apocryphaBooks ? (
         <>
-          <PageHeader>
-            <div className="flex-1">
-              <PageHeading onBackClick={() => setBibleId(undefined)}>
-                {t('BooksView.page.title')}
-              </PageHeading>
-            </div>
-            <div className="flex-none gap-2 ml-4">
-              <span className="badge badge-lg hidden sm:inline-flex">{bible.nameLocal}</span>
-              <span className="badge badge-lg inline-flex sm:hidden">
-                {bible.abbreviationLocal}
-              </span>
-            </div>
-          </PageHeader>
           <PageMain>
-            <List>
-              {books?.map((book) => (
-                <ButtonListItem key={book.id} className="btn-sm" onClick={() => setBookId(book.id)}>
-                  {book.name}
-                </ButtonListItem>
-              ))}
-            </List>
+            <div
+              className="grid gap-4"
+              style={{ gridTemplateColumns: `repeat(${bookGroupCount}, minmax(0, 1fr))` }}
+            >
+              {oldTestamentBooks.length ? (
+                <BookList
+                  title={t('BooksView.oldTestament.section.title')}
+                  books={oldTestamentBooks}
+                  setBookId={(bookId) => setBookId(bookId)}
+                />
+              ) : null}
+              {apocryphaBooks.length ? (
+                <BookList
+                  title={t('BooksView.apocrypha.section.title')}
+                  books={apocryphaBooks}
+                  setBookId={(bookId) => setBookId(bookId)}
+                />
+              ) : null}
+              {newTestamentBooks.length ? (
+                <BookList
+                  title={t('BooksView.newTestament.section.title')}
+                  books={newTestamentBooks}
+                  setBookId={(bookId) => setBookId(bookId)}
+                />
+              ) : null}
+            </div>
           </PageMain>
           <PageFooter>
-            {bible.info ? <FooterSection title={'About'} text={bible.info} /> : null}
-            <FooterSection title={'Copyright'} text={bible.copyright} />
-          </PageFooter>{' '}
+            {bible.info ? (
+              <FooterSection
+                title={t('PageFooter.about.section.title', {
+                  name: bible.nameLocal,
+                })}
+                text={bible.info}
+              />
+            ) : null}
+            <FooterSection title={t('PageFooter.copyright.section.title')} text={bible.copyright} />
+          </PageFooter>
         </>
       ) : null}
 
@@ -61,3 +95,7 @@ export const BooksView = () => {
 };
 
 export default BooksView;
+
+const hasBooks = (books: BookSummary[] | undefined) => !!books && books.length > 0;
+
+const getBookGroupCount = (books: BookSummary[] | undefined) => (hasBooks(books) ? 1 : 0);

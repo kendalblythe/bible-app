@@ -1,4 +1,5 @@
-import { BibleSummary, Language } from '../api/types';
+import { newTestamentBookIdSet, oldTestamentBookIdSet } from '../api/constants';
+import { BibleSummary, BookSummary, BooksAndGroupings, Language } from '../api/types';
 import { sortBibles, sortByName } from './sort';
 
 export const getLatestBibleVersions = (bibles: BibleSummary[]): BibleSummary[] => {
@@ -28,4 +29,20 @@ export const getLanguageDisplayName = (language: Language): string => {
   return language.name === language.nameLocal
     ? language.name
     : `${language.name} (${language.nameLocal})`;
+};
+
+export const getBookGroupings = (books: BookSummary[]): BooksAndGroupings => {
+  const oldTestamentBooks: BookSummary[] = [];
+  const newTestamentBooks: BookSummary[] = [];
+  const apocryphaBooks: BookSummary[] = [];
+  for (const book of books) {
+    if (oldTestamentBookIdSet.has(book.id)) {
+      oldTestamentBooks.push(book);
+    } else if (newTestamentBookIdSet.has(book.id)) {
+      newTestamentBooks.push(book);
+    } else {
+      apocryphaBooks.push(book);
+    }
+  }
+  return { books, oldTestamentBooks, newTestamentBooks, apocryphaBooks };
 };

@@ -4,5 +4,12 @@
   "BiblesView.language.select.aria.label": "Idioma",
   "BiblesView.language.select.tip.label": "Selecciona un idioma",
   "BooksView.page.title": "Books",
-  "PageHeading.back.button.label": "Go back"
+  "BooksView.oldTestament.section.title": "Old Testament",
+  "BooksView.newTestament.section.title": "New Testament",
+  "BooksView.apocrypha.section.title": "Apocrypha",
+  "ErrorView.page.title": "API.Bible Service Error",
+  "ErrorView.page.error.msg": "An error occurred while communicating with the API.Bible service.\n\nTry refreshing the page or come back later.",
+  "PageHeading.back.button.label": "Go back",
+  "PageFooter.about.section.title": "About {name}",
+  "PageFooter.copyright.section.title": "Copyright"
 }

@@ -1,6 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 
 import rehypeRaw from 'rehype-raw';
+import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 
 import styles from './MarkdownText.module.css';
@@ -11,10 +12,10 @@ export interface MarkdownTextProps {
 export const MarkdownText = ({ text }: MarkdownTextProps) => (
   <ReactMarkdown
     className={styles.markdownText}
-    remarkPlugins={[remarkGfm]}
+    remarkPlugins={[remarkGfm, remarkBreaks]}
     rehypePlugins={[rehypeRaw]}
     linkTarget="_blank"
   >
-    {text}
+    {text.trim()}
   </ReactMarkdown>
 );
