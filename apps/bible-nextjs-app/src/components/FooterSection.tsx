@@ -6,8 +6,8 @@ export interface FooterSectionProps {
 }
 
 export const FooterSection = ({ title, text }: FooterSectionProps) => (
-  <div className="max-w-prose mx-auto mb-4 text-center text-sm">
-    <div className="font-medium mt-4 mb-1">{title}</div>
+  <div className="mx-auto px-4 sm:px-8 md:px-10 lg:px-12 pb-4 text-center text-sm">
+    <div className="font-bold mb-1">{title}</div>
     <div>
       <MarkdownText text={text} />
     </div>

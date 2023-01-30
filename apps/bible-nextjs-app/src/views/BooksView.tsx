@@ -1,13 +1,16 @@
+import clsx from 'clsx';
+
 import { ErrorView } from '.';
 import { useBibleQuery, useBooksQuery } from '../api/queries';
 import { BookSummary } from '../api/types';
 import { BookList, PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
 import { FooterSection } from '../components/FooterSection';
 import { PageFooter } from '../components/PageFooter';
-import { useGlobalStore, useTranslation } from '../hooks';
+import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
 
 export const BooksView = () => {
   const { t } = useTranslation();
+  useScrollTop();
 
   // state
   const { bibleId, setBibleId, setBookId } = useGlobalStore();
@@ -22,6 +25,7 @@ export const BooksView = () => {
   const apocryphaBooks = booksQueryResult.data?.apocryphaBooks;
   const isLoading = bibleQueryResult.isLoading || booksQueryResult.isLoading;
   const isError = bibleQueryResult.isError || booksQueryResult.isError;
+
   const bookGroupCount =
     getBookGroupCount(oldTestamentBooks) +
     getBookGroupCount(newTestamentBooks) +
@@ -47,11 +51,8 @@ export const BooksView = () => {
 
       {bible && oldTestamentBooks && newTestamentBooks && apocryphaBooks ? (
         <>
-          <PageMain>
-            <div
-              className="grid gap-4"
-              style={{ gridTemplateColumns: `repeat(${bookGroupCount}, minmax(0, 1fr))` }}
-            >
+          <PageMain dir={bible.language.scriptDirection}>
+            <div className={clsx('grid grid-cols-1 gap-4', bookGroupCount > 1 && 'sm:grid-cols-2')}>
               {oldTestamentBooks.length ? (
                 <BookList
                   title={t('BooksView.oldTestament.section.title')}
@@ -59,20 +60,23 @@ export const BooksView = () => {
                   setBookId={(bookId) => setBookId(bookId)}
                 />
               ) : null}
-              {apocryphaBooks.length ? (
-                <BookList
-                  title={t('BooksView.apocrypha.section.title')}
-                  books={apocryphaBooks}
-                  setBookId={(bookId) => setBookId(bookId)}
-                />
-              ) : null}
-              {newTestamentBooks.length ? (
-                <BookList
-                  title={t('BooksView.newTestament.section.title')}
-                  books={newTestamentBooks}
-                  setBookId={(bookId) => setBookId(bookId)}
-                />
-              ) : null}
+              <div>
+                {apocryphaBooks.length ? (
+                  <BookList
+                    className="mb-4"
+                    title={t('BooksView.apocrypha.section.title')}
+                    books={apocryphaBooks}
+                    setBookId={(bookId) => setBookId(bookId)}
+                  />
+                ) : null}
+                {newTestamentBooks.length ? (
+                  <BookList
+                    title={t('BooksView.newTestament.section.title')}
+                    books={newTestamentBooks}
+                    setBookId={(bookId) => setBookId(bookId)}
+                  />
+                ) : null}
+              </div>
             </div>
           </PageMain>
           <PageFooter>

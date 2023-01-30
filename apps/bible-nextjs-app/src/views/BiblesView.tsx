@@ -10,11 +10,12 @@ import {
   PageSpinner,
   Select,
 } from '../components';
-import { useGlobalStore, useTranslation } from '../hooks';
+import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
 import { getLanguageDisplayName } from '../utils/bible';
 
 export const BiblesView = () => {
   const { t } = useTranslation();
+  useScrollTop();
 
   // state
   const { languageId, setLanguageId, setBibleId } = useGlobalStore();
@@ -43,7 +44,7 @@ export const BiblesView = () => {
               value={languageId}
               ariaLabel={t('BiblesView.language.select.aria.label')}
               title={t('BiblesView.language.select.tip.label')}
-              className="max-w-[12rem] sm:max-w-xs"
+              className="max-w-[12rem] md:max-w-xs truncate"
               onChange={(e) => setLanguageId(e.target.value)}
             >
               {languages.map((language) => (
