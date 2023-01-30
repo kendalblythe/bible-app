@@ -10,7 +10,9 @@ export interface BookListProps {
 
 export const BookList = ({ className, title, books, setBookId }: BookListProps) => (
   <List className={className}>
-    <h1 className="text-sm font-bold p-1">{title}</h1>
+    <li>
+      <h1 className="text-sm font-bold p-1">{title}</h1>
+    </li>
     {books.map((book) => (
       <ButtonListItem key={book.id} className="btn-sm" onClick={() => setBookId(book.id)}>
         <span className="truncate">{book.name}</span>

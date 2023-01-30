@@ -25,13 +25,14 @@ export const BooksView = () => {
   const apocryphaBooks = booksQueryResult.data?.apocryphaBooks;
   const isLoading = bibleQueryResult.isLoading || booksQueryResult.isLoading;
   const isError = bibleQueryResult.isError || booksQueryResult.isError;
-
   const bookGroupCount =
     getBookGroupCount(oldTestamentBooks) +
     getBookGroupCount(newTestamentBooks) +
     getBookGroupCount(apocryphaBooks);
 
+  // handle query error
   if (isError) return <ErrorView />;
+
   return (
     <>
       <PageHeader>
@@ -79,6 +80,7 @@ export const BooksView = () => {
               </div>
             </div>
           </PageMain>
+
           <PageFooter>
             {bible.info ? (
               <FooterSection

@@ -27,7 +27,9 @@ export const BiblesView = () => {
   const languages = biblesQueryResult.data?.languages;
   const { isLoading, isError } = biblesQueryResult;
 
+  // handle query error
   if (isError) return <ErrorView />;
+
   return (
     <>
       <PageHeader>

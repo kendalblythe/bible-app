@@ -1,10 +1,16 @@
 import Head from 'next/head';
 
 import { useGlobalStore } from '../hooks';
-import { BiblesView, BooksView } from '../views';
+import { BiblesView, BooksView, ChaptersView } from '../views';
 
 export default function Home() {
-  const { bibleId } = useGlobalStore();
+  const { bibleId, bookId } = useGlobalStore();
+
+  const getView = () => {
+    if (bibleId && bookId) return <ChaptersView />;
+    if (bibleId) return <BooksView />;
+    return <BiblesView />;
+  };
 
   return (
     <>
@@ -14,7 +20,7 @@ export default function Home() {
         <link rel="icon" href="/bible.png" />
       </Head>
 
-      {bibleId ? <BooksView /> : <BiblesView />}
+      {getView()}
     </>
   );
 }

@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 
 import { getBookGroupings, getLanguages, getLatestBibleVersions } from '../utils/bible';
 import axios from './axios';
-import { Bible, BiblesAndLanguages, BooksAndGroupings, BookSummary } from './types';
+import { Bible, BiblesAndLanguages, Book, BooksAndGroupings, BookSummary } from './types';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 
@@ -59,5 +59,23 @@ export const useBooksQuery = (
       ...defaultOptions,
       ...options,
       enabled: !!bibleId,
+    }
+  );
+
+export const useBookQuery = (
+  bibleId: string | undefined,
+  bookId: string | undefined,
+  options?: QueryOptions<Book>
+) =>
+  useQuery(
+    ['bibles', bibleId!, 'books', bookId!],
+    async () => {
+      const response = await axios.get(`/bibles/${bibleId}/books/${bookId}?include-chapters=true`);
+      return response.data.data as Book;
+    },
+    {
+      ...defaultOptions,
+      ...options,
+      enabled: !!bibleId && !!bookId,
     }
   );
