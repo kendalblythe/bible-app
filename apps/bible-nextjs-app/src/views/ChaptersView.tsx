@@ -1,16 +1,20 @@
 import { BsInfoCircle } from 'react-icons/bs';
 
+import { useRouter } from 'next/router';
+
 import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
+import { Bible, ChapterSummary } from '../api/types';
 import { PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
 import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
 
 export const ChaptersView = () => {
   const { t } = useTranslation();
+  const router = useRouter();
   useScrollTop();
 
   // state
-  const { bibleId, bookId, setBookId, setChapterId } = useGlobalStore();
+  const { bibleId, bookId, setBookId } = useGlobalStore();
 
   // queries
   const bibleQueryResult = useBibleQuery(bibleId);
@@ -20,6 +24,10 @@ export const ChaptersView = () => {
   const book = bookQueryResult.data;
   const isLoading = bibleQueryResult.isLoading || bookQueryResult.isLoading;
   const isError = bibleQueryResult.isError || bookQueryResult.isError;
+
+  // handle chapter click
+  const onChapterClick = (bible: Bible, chapter: ChapterSummary) =>
+    router.push(`/passage/${bible.abbreviation}/${chapter.id}`);
 
   // handle query error
   if (isError) return <ErrorView />;
@@ -52,7 +60,7 @@ export const ChaptersView = () => {
                     key={chapter.id}
                     className="btn-ghost btn-sm w-24 mx-0 my-2"
                     title={t('ChaptersView.intro.button.label')}
-                    onClick={() => setChapterId(book.id)}
+                    onClick={() => onChapterClick(bible, chapter)}
                   >
                     <BsInfoCircle className="inline-block mx-auto mb-0.5" />
                   </button>
@@ -60,7 +68,7 @@ export const ChaptersView = () => {
                   <button
                     key={chapter.id}
                     className="btn-ghost btn-sm w-24 mx-0 my-2"
-                    onClick={() => setChapterId(book.id)}
+                    onClick={() => onChapterClick(bible, chapter)}
                   >
                     {chapter.number}
                   </button>
