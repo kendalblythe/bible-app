@@ -3,9 +3,9 @@ import { useQuery, UseQueryOptions } from 'react-query';
 
 import { AxiosError } from 'axios';
 
-import { getBookGroupings, getLanguages, getLatestBibleVersions } from '../utils/bible';
-import axios from './axios';
-import { Bible, BiblesAndLanguages, Book, BooksAndGroupings, BookSummary } from './types';
+import { getBookGroupings, getLanguages } from '../utils/bible';
+import { getBible, getBibles, getBook, getBooks } from './apis';
+import { Bible, BiblesAndLanguages, Book, BooksAndGroupings } from './types';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 
@@ -19,8 +19,7 @@ export const useBiblesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
   useQuery(
     ['bibles'],
     async () => {
-      const response = await axios.get('/bibles');
-      const bibles = getLatestBibleVersions(response.data.data);
+      const bibles = await getBibles();
       const languages = getLanguages(bibles);
       return { bibles, languages };
     },
@@ -31,18 +30,11 @@ export const useBiblesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
   );
 
 export const useBibleQuery = (bibleId: string | undefined, options?: QueryOptions<Bible>) =>
-  useQuery(
-    ['bibles', bibleId!],
-    async () => {
-      const response = await axios.get(`/bibles/${bibleId}`);
-      return response.data.data as Bible;
-    },
-    {
-      ...defaultOptions,
-      ...options,
-      enabled: !!bibleId,
-    }
-  );
+  useQuery(['bibles', bibleId!], () => getBible(bibleId!), {
+    ...defaultOptions,
+    ...options,
+    enabled: !!bibleId,
+  });
 
 export const useBooksQuery = (
   bibleId: string | undefined,
@@ -51,8 +43,7 @@ export const useBooksQuery = (
   useQuery(
     ['bibles', bibleId!, 'books'],
     async () => {
-      const response = await axios.get(`/bibles/${bibleId!}/books`);
-      const books = response.data.data as BookSummary[];
+      const books = await getBooks(bibleId!);
       return getBookGroupings(books);
     },
     {
@@ -67,15 +58,8 @@ export const useBookQuery = (
   bookId: string | undefined,
   options?: QueryOptions<Book>
 ) =>
-  useQuery(
-    ['bibles', bibleId!, 'books', bookId!],
-    async () => {
-      const response = await axios.get(`/bibles/${bibleId}/books/${bookId}?include-chapters=true`);
-      return response.data.data as Book;
-    },
-    {
-      ...defaultOptions,
-      ...options,
-      enabled: !!bibleId && !!bookId,
-    }
-  );
+  useQuery(['bibles', bibleId!, 'books', bookId!], () => getBook(bibleId!, bookId!), {
+    ...defaultOptions,
+    ...options,
+    enabled: !!bibleId && !!bookId,
+  });

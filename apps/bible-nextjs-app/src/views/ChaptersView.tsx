@@ -27,7 +27,7 @@ export const ChaptersView = () => {
 
   // handle chapter click
   const onChapterClick = (bible: Bible, chapter: ChapterSummary) =>
-    router.push(`/passage/${bible.abbreviation}/${chapter.id}`);
+    router.push(`/passage/${bible.abbreviation}/${chapter.bookId}/${chapter.number}`);
 
   // handle query error
   if (isError) return <ErrorView />;

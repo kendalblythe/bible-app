@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 
 export default function Home() {
   const router = useRouter();
-  const { bibleAbbreviation, chapterId } = router.query;
+  const { bibleAbbreviation, bookId, chapterNumber } = router.query;
+  const chapterId = `${bookId}.${chapterNumber}`;
 
   return (
     <>
@@ -16,6 +17,9 @@ export default function Home() {
       <main>
         <div>bibleAbbreviation: {bibleAbbreviation}</div>
         <div>chapterId: {chapterId}</div>
+        <div>locale: {router.locale}</div>
+        <div>route: {router.route}</div>
+        <pre>{JSON.stringify(router.query, null, 2)}</pre>
       </main>
     </>
   );

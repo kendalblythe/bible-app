@@ -12,6 +12,7 @@ export const getLatestBibleVersions = (bibles: BibleSummary[]): BibleSummary[] =
       latestBibles.push(bible);
     }
   }
+  makeBibleAbbreviationUnique(latestBibles);
   return latestBibles;
 };
 
@@ -45,4 +46,46 @@ export const getBookGroupings = (books: BookSummary[]): BooksAndGroupings => {
     }
   }
   return { books, oldTestamentBooks, newTestamentBooks, apocryphaBooks };
+};
+
+const makeBibleAbbreviationUnique = (bibles: BibleSummary[]): void => {
+  // get duplicate abbreviations
+  const abbreviationSet = new Set<string>();
+  const dupAbbreviationSet = new Set<string>();
+  for (const bible of bibles) {
+    if (abbreviationSet.has(bible.abbreviation)) dupAbbreviationSet.add(bible.abbreviation);
+    abbreviationSet.add(bible.abbreviation);
+  }
+
+  // get duplicate bibles map
+  const dupBibles = bibles.filter((bible) => dupAbbreviationSet.has(bible.abbreviation));
+  const dupBiblesMap: Record<string, BibleSummary[]> = {};
+  for (const bible of dupBibles) {
+    const dupBibles = dupBiblesMap[bible.abbreviation] ?? [];
+    dupBibles.push(bible);
+    dupBiblesMap[bible.abbreviation] = dupBibles;
+  }
+
+  // make bible abbreviation unique for duplicate bibles
+  for (const abbr of Object.keys(dupBiblesMap)) {
+    // check if adding language make abbreviation unique
+    const dupBibles = dupBiblesMap[abbr];
+    const languageIdSet = new Set<string>();
+    for (const bible of dupBibles) languageIdSet.add(bible.language.id);
+
+    if (dupBibles.length === languageIdSet.size) {
+      // prepend language id to abbreviation to make abbreviation unique
+      for (const bible of dupBibles)
+        bible.abbreviation = `${bible.language.id}${bible.abbreviation}`;
+    } else {
+      // check if abbreviation local is unique
+      const abbreviationLocalSet = new Set<string>();
+      for (const bible of dupBibles) abbreviationLocalSet.add(bible.abbreviationLocal);
+
+      if (dupBibles.length === abbreviationLocalSet.size) {
+        // set abbreviation = abbrevation local to make abbreviation unique
+        for (const bible of dupBibles) bible.abbreviation = bible.abbreviationLocal;
+      }
+    }
+  }
 };
