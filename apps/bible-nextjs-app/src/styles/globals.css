@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 body {
-  max-inline-size: 800px;
-  margin-inline: auto;
+  @apply mx-auto max-w-[800px];
+}
+
+:root .scripture-styles {
+  @apply text-lg text-inherit;
+  font-family: inherit;
+}
+
+:root .scripture-styles p {
+  @apply indent-8 mt-4;
+}
+
+:root .scripture-styles p .v {
+  @apply text-sm align-text-top mx-1 font-bold;
 }

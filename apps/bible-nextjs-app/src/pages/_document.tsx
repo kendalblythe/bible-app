@@ -7,7 +7,9 @@ export default function Document(props: any) {
   const { locale } = props.__NEXT_DATA__;
   return (
     <Html dir={isRtlLang(locale) ? 'rtl' : 'ltr'}>
-      <Head></Head>
+      <Head>
+        <link rel="stylesheet" href="https://assets.api.bible/css/scripture-styles.css" />
+      </Head>
       <body>
         <Main />
         <NextScript />
