@@ -40,14 +40,6 @@ export interface BiblesAndLanguages {
   languages: Language[];
 }
 
-export interface ChapterSummary {
-  id: string;
-  bibleId: string;
-  number: string;
-  bookId: string;
-  reference: string;
-}
-
 export interface BookSummary {
   id: string;
   bibleId: string;
@@ -65,4 +57,30 @@ export interface BooksAndGroupings {
   oldTestamentBooks: BookSummary[];
   newTestamentBooks: BookSummary[];
   apocryphaBooks: BookSummary[];
+}
+
+export interface BookQueryParams {
+  includeChapters?: boolean;
+}
+
+export interface ChapterSummary {
+  id: string;
+  bibleId: string;
+  number: string;
+  bookId: string;
+  reference: string;
+}
+
+export interface AdjacentChapter {
+  id: string;
+  bookId: string;
+  number: string;
+}
+
+export interface Chapter extends ChapterSummary {
+  content: string;
+  verseCount: number;
+  next: AdjacentChapter;
+  previous: AdjacentChapter;
+  copyright: string;
 }

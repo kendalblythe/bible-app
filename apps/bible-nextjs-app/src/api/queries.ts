@@ -5,7 +5,7 @@ import { AxiosError } from 'axios';
 
 import { getBookGroupings, getLanguages } from '../utils/bible';
 import { getBible, getBibles, getBook, getBooks } from './apis';
-import { Bible, BiblesAndLanguages, Book, BooksAndGroupings } from './types';
+import { Bible, BiblesAndLanguages, Book, BookQueryParams, BooksAndGroupings } from './types';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 
@@ -56,9 +56,10 @@ export const useBooksQuery = (
 export const useBookQuery = (
   bibleId: string | undefined,
   bookId: string | undefined,
-  options?: QueryOptions<Book>
+  params?: BookQueryParams,
+  options?: QueryOptions<Book | null>
 ) =>
-  useQuery(['bibles', bibleId!, 'books', bookId!], () => getBook(bibleId!, bookId!), {
+  useQuery(['bibles', bibleId!, 'books', bookId!], () => getBook(bibleId!, bookId!, params), {
     ...defaultOptions,
     ...options,
     enabled: !!bibleId && !!bookId,

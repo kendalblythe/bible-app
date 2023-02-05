@@ -18,7 +18,7 @@ export const ChaptersView = () => {
 
   // queries
   const bibleQueryResult = useBibleQuery(bibleId);
-  const bookQueryResult = useBookQuery(bibleId, bookId);
+  const bookQueryResult = useBookQuery(bibleId, bookId, { includeChapters: true });
 
   const bible = bibleQueryResult.data;
   const book = bookQueryResult.data;
