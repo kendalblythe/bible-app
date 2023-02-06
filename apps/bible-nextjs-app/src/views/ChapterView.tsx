@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { BsChevronDown, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import { useRouter } from 'next/router';
 
@@ -67,13 +67,18 @@ export const ChapterView = ({ bible, book, chapter }: ChapterViewProps) => {
               )}
             </button>
           ) : null}
-          <span className="badge badge-lg" title={bible.nameLocal}>
+          <button className="btn btn-sm">
             {bible.abbreviationLocal}
-          </span>
-          <span className="badge badge-lg">{book.name}</span>
-          <span className="badge badge-lg">
+            <ButtonDownIcon />
+          </button>
+          <button className="btn btn-sm">
+            {book.name}
+            <ButtonDownIcon />
+          </button>
+          <button className="btn btn-sm">
             {chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number}
-          </span>
+            <ButtonDownIcon />
+          </button>
         </div>
         <div className="flex-none gap-2 ml-4">
           {chapter.next ? (
@@ -104,3 +109,5 @@ export const ChapterView = ({ bible, book, chapter }: ChapterViewProps) => {
     </>
   );
 };
+
+const ButtonDownIcon = () => <BsChevronDown size="0.75rem" className="ml-2" />;
