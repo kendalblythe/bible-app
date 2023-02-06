@@ -13,7 +13,7 @@ import {
   PageSpinner,
 } from '../components';
 import { useLocalStorageState, usePageLoading, useTranslation } from '../hooks';
-import { localStorageKey, LocalStorageState } from '../types';
+import { localStorageKey, LocalStorageState } from '../types/ui';
 
 export interface ChapterViewProps {
   bible: BibleSummary;

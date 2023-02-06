@@ -4,7 +4,7 @@ import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
 import { ChapterSummary } from '../api/types';
 import { PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
-import { usePageLoading, useScrollTop, useTranslation } from '../hooks';
+import { useScrollTop, useTranslation } from '../hooks';
 
 export interface ChaptersViewProps {
   bibleId: string;
@@ -20,7 +20,6 @@ export const ChaptersView = ({
   onBackClick,
 }: ChaptersViewProps) => {
   const { t } = useTranslation();
-  const { isPageLoading } = usePageLoading();
   useScrollTop();
 
   // queries
@@ -29,7 +28,7 @@ export const ChaptersView = ({
 
   const bible = bibleQueryResult.data;
   const book = bookQueryResult.data;
-  const isLoading = isPageLoading || bibleQueryResult.isLoading || bookQueryResult.isLoading;
+  const isLoading = bibleQueryResult.isLoading || bookQueryResult.isLoading;
   const isError = bibleQueryResult.isError || bookQueryResult.isError;
 
   // handle query error

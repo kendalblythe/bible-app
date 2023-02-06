@@ -5,12 +5,13 @@ import { useRouter } from 'next/router';
 
 import { BibleSummary, BookSummary } from '../api/types';
 import { PageSpinner } from '../components';
-import { useLocalStorageState } from '../hooks';
-import { localStorageKey, LocalStorageState } from '../types';
+import { useLocalStorageState, usePageLoading } from '../hooks';
+import { localStorageKey, LocalStorageState, ViewType } from '../types/ui';
 import { BiblesView, BooksView, ChaptersView } from '../views';
 
 export default function Home() {
   const router = useRouter();
+  const { isPageLoading } = usePageLoading();
 
   // local storage state
   const [state, , isLoaded] = useLocalStorageState<LocalStorageState | undefined>(
@@ -74,9 +75,9 @@ export default function Home() {
         <link rel="icon" href="/bible.png" />
       </Head>
 
-      {isLoaded && !state ? getView() : <PageSpinner />}
+      {isLoaded && !state ? getView() : null}
+
+      {!isLoaded || isPageLoading ? <PageSpinner /> : null}
     </>
   );
 }
-
-type ViewType = 'bibles' | 'books' | 'chapters';
