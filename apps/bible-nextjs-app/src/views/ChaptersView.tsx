@@ -6,11 +6,12 @@ import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
 import { Bible, ChapterSummary } from '../api/types';
 import { PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
-import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
+import { useGlobalStore, usePageLoading, useScrollTop, useTranslation } from '../hooks';
 
 export const ChaptersView = () => {
   const { t } = useTranslation();
   const router = useRouter();
+  const { isPageLoading } = usePageLoading();
   useScrollTop();
 
   // state
@@ -22,12 +23,12 @@ export const ChaptersView = () => {
 
   const bible = bibleQueryResult.data;
   const book = bookQueryResult.data;
-  const isLoading = bibleQueryResult.isLoading || bookQueryResult.isLoading;
+  const isLoading = isPageLoading || bibleQueryResult.isLoading || bookQueryResult.isLoading;
   const isError = bibleQueryResult.isError || bookQueryResult.isError;
 
   // handle chapter click
   const onChapterClick = (bible: Bible, chapter: ChapterSummary) =>
-    router.push(`/passage/${bible.abbreviation}/${chapter.bookId}/${chapter.number}`);
+    router.replace(`/passage/${bible.abbreviation}/${chapter.bookId}/${chapter.number}`);
 
   // handle query error
   if (isError) return <ErrorView />;

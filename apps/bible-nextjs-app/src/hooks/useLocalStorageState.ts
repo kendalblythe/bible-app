@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const useLocalStorageState = <T>(key: string, fallbackValue: T) => {
   const [isLoaded, setLoaded] = useState(false);
@@ -10,16 +10,17 @@ export const useLocalStorageState = <T>(key: string, fallbackValue: T) => {
     setLoaded(true);
   }, [key, fallbackValue]);
 
-  const setValueAndUpdateLocalStorage = (value: T) => {
-    setValue(value);
-    if (value === undefined || value === null) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-  };
+  const setValueAndUpdateLocalStorage = useCallback(
+    (value: T) => {
+      setValue(value);
+      if (value === undefined || value === null) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+    },
+    [key]
+  );
 
   return [value, setValueAndUpdateLocalStorage, isLoaded] as const;
 };
-
-export default useLocalStorageState;

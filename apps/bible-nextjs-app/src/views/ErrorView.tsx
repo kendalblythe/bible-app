@@ -1,7 +1,6 @@
 import { clsx } from 'clsx';
 
-import { PageHeader, PageHeading, PageMain } from '../components';
-import { MarkdownText } from '../components/MarkdownText';
+import { MarkdownText, PageHeader, PageHeading, PageMain } from '../components';
 import { useTranslation } from '../hooks';
 
 import styles from './ErrorView.module.css';

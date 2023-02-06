@@ -3,9 +3,15 @@ import clsx from 'clsx';
 import { ErrorView } from '.';
 import { useBibleQuery, useBooksQuery } from '../api/queries';
 import { BookSummary } from '../api/types';
-import { BookList, PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
-import { FooterSection } from '../components/FooterSection';
-import { PageFooter } from '../components/PageFooter';
+import {
+  BookList,
+  FooterSection,
+  PageHeader,
+  PageFooter,
+  PageHeading,
+  PageMain,
+  PageSpinner,
+} from '../components';
 import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
 
 export const BooksView = () => {
