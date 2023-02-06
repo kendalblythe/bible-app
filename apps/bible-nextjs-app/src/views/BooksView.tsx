@@ -106,8 +106,6 @@ export const BooksView = () => {
   );
 };
 
-export default BooksView;
-
 const hasBooks = (books: BookSummary[] | undefined) => !!books && books.length > 0;
 
 const getBookGroupCount = (books: BookSummary[] | undefined) => (hasBooks(books) ? 1 : 0);

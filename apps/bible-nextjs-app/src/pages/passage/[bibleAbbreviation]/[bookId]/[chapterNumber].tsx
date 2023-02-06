@@ -6,8 +6,7 @@ import { ParsedUrlQuery } from 'querystring';
 import { getChapter } from '../../../../api/apis';
 import { getBible, getBook } from '../../../../api/cache';
 import { BibleSummary, Book, Chapter } from '../../../../api/types';
-import { ErrorView } from '../../../../views';
-import ChapterView from '../../../../views/ChapterView';
+import { ChapterView, ErrorView } from '../../../../views';
 
 export interface ChapterPageProps {
   bible?: BibleSummary;

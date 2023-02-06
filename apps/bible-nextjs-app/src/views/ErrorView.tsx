@@ -22,5 +22,3 @@ export const ErrorView = () => {
     </>
   );
 };
-
-export default ErrorView;

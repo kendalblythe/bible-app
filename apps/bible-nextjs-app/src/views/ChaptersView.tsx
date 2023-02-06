@@ -84,5 +84,3 @@ export const ChaptersView = () => {
     </>
   );
 };
-
-export default ChaptersView;

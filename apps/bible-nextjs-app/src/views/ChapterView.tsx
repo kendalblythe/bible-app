@@ -21,7 +21,7 @@ export interface ChapterViewProps {
   chapter: Chapter;
 }
 
-export default function ChapterView({ bible, book, chapter }: ChapterViewProps) {
+export const ChapterView = ({ bible, book, chapter }: ChapterViewProps) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { isPageLoading } = usePageLoading();
@@ -103,4 +103,4 @@ export default function ChapterView({ bible, book, chapter }: ChapterViewProps) 
       {isPageLoading ? <PageSpinner /> : null}
     </>
   );
-}
+};
