@@ -13,7 +13,7 @@ import {
   PageSpinner,
 } from '../components';
 import { useLocalStorageState, usePageLoading, useTranslation } from '../hooks';
-import { Passage } from '../types';
+import { localStorageKey, LocalStorageState } from '../types';
 
 export interface ChapterViewProps {
   bible: BibleSummary;
@@ -25,19 +25,19 @@ export const ChapterView = ({ bible, book, chapter }: ChapterViewProps) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { isPageLoading } = usePageLoading();
-  const [, setPassage] = useLocalStorageState<Passage | undefined>(
-    'bible-nextjs-app-passage',
+  const [, setLocalStorageState] = useLocalStorageState<LocalStorageState | undefined>(
+    localStorageKey,
     undefined
   );
 
   useEffect(
     () =>
-      setPassage({
+      setLocalStorageState({
         bibleAbbreviation: bible.abbreviation,
         bookId: book.id,
         chapterNumber: chapter.number,
       }),
-    [bible.abbreviation, book.id, chapter.number, setPassage]
+    [bible.abbreviation, book.id, chapter.number, setLocalStorageState]
   );
 
   // handle previous chapter click

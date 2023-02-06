@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 import { ErrorView } from '.';
 import { useBiblesQuery } from '../api/queries';
+import { BibleSummary } from '../api/types';
 import {
   ButtonListItem,
   Label,
@@ -10,15 +13,21 @@ import {
   PageSpinner,
   Select,
 } from '../components';
-import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
+import { useScrollTop, useTranslation } from '../hooks';
 import { getLanguageDisplayName } from '../utils/bible';
 
-export const BiblesView = () => {
+export interface BiblesViewProps {
+  bible?: BibleSummary;
+  onBibleSelected: (bible: BibleSummary) => void;
+  onBackClick?: () => void;
+}
+
+export const BiblesView = ({ bible, onBibleSelected, onBackClick }: BiblesViewProps) => {
   const { t } = useTranslation();
   useScrollTop();
 
   // state
-  const { languageId, setLanguageId, setBibleId } = useGlobalStore();
+  const [languageId, setLanguageId] = useState(bible?.language.id ?? 'eng');
 
   // queries
   const biblesQueryResult = useBiblesQuery();
@@ -34,7 +43,7 @@ export const BiblesView = () => {
     <>
       <PageHeader>
         <div className="flex-1">
-          <PageHeading>{t('BiblesView.page.title')}</PageHeading>
+          <PageHeading onBackClick={onBackClick}>{t('BiblesView.page.title')}</PageHeading>
         </div>
         {languages ? (
           <div className="flex-none gap-2 ml-4">
@@ -68,7 +77,7 @@ export const BiblesView = () => {
                 <ButtonListItem
                   key={bible.id}
                   className="block"
-                  onClick={() => setBibleId(bible.id)}
+                  onClick={() => onBibleSelected(bible)}
                 >
                   <div className="font-medium">{bible.abbreviationLocal}</div>
                   <div className="block label label-text p-0">{bible.nameLocal}</div>

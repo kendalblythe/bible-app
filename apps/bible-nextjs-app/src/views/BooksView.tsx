@@ -12,14 +12,18 @@ import {
   PageMain,
   PageSpinner,
 } from '../components';
-import { useGlobalStore, useScrollTop, useTranslation } from '../hooks';
+import { useScrollTop, useTranslation } from '../hooks';
 
-export const BooksView = () => {
+export interface BooksViewProps {
+  bibleId: string;
+  bookId?: string;
+  onBookSelected: (book: BookSummary) => void;
+  onBackClick: () => void;
+}
+
+export const BooksView = ({ bibleId, onBookSelected, onBackClick }: BooksViewProps) => {
   const { t } = useTranslation();
   useScrollTop();
-
-  // state
-  const { bibleId, setBibleId, setBookId } = useGlobalStore();
 
   // queries
   const bibleQueryResult = useBibleQuery(bibleId);
@@ -43,9 +47,7 @@ export const BooksView = () => {
     <>
       <PageHeader>
         <div className="flex-1">
-          <PageHeading onBackClick={() => setBibleId(undefined)}>
-            {t('BooksView.page.title')}
-          </PageHeading>
+          <PageHeading onBackClick={onBackClick}>{t('BooksView.page.title')}</PageHeading>
         </div>
         {bible ? (
           <div className="flex-none gap-2 ml-4">
@@ -64,7 +66,7 @@ export const BooksView = () => {
                 <BookList
                   title={t('BooksView.oldTestament.section.title')}
                   books={oldTestamentBooks}
-                  setBookId={(bookId) => setBookId(bookId)}
+                  onBookSelected={onBookSelected}
                 />
               ) : null}
               <div>
@@ -73,14 +75,14 @@ export const BooksView = () => {
                     className="mb-4"
                     title={t('BooksView.apocrypha.section.title')}
                     books={apocryphaBooks}
-                    setBookId={(bookId) => setBookId(bookId)}
+                    onBookSelected={onBookSelected}
                   />
                 ) : null}
                 {newTestamentBooks.length ? (
                   <BookList
                     title={t('BooksView.newTestament.section.title')}
                     books={newTestamentBooks}
-                    setBookId={(bookId) => setBookId(bookId)}
+                    onBookSelected={onBookSelected}
                   />
                 ) : null}
               </div>

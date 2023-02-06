@@ -1,34 +1,69 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { BibleSummary, BookSummary } from '../api/types';
 import { PageSpinner } from '../components';
-import { useGlobalStore, useLocalStorageState } from '../hooks';
-import { Passage } from '../types';
+import { useLocalStorageState } from '../hooks';
+import { localStorageKey, LocalStorageState } from '../types';
 import { BiblesView, BooksView, ChaptersView } from '../views';
 
 export default function Home() {
   const router = useRouter();
-  const { bibleId, bookId } = useGlobalStore();
-  const [passage, , isLoaded] = useLocalStorageState<Passage | undefined>(
-    'bible-nextjs-app-passage',
+
+  // local storage state
+  const [state, , isLoaded] = useLocalStorageState<LocalStorageState | undefined>(
+    localStorageKey,
     undefined
   );
-  console.info(`passage = ${passage}`);
+
+  // state
+  const [viewType, setViewType] = useState<ViewType>('bibles');
+  const [bible, setBible] = useState<BibleSummary | undefined>();
+  const [book, setBook] = useState<BookSummary | undefined>();
 
   useEffect(() => {
-    if (passage) {
-      router.replace(
-        `/passage/${passage.bibleAbbreviation}/${passage.bookId}/${passage.chapterNumber}`
-      );
+    if (state) {
+      router.replace(`/passage/${state.bibleAbbreviation}/${state.bookId}/${state.chapterNumber}`);
     }
-  }, [router, passage]);
+  }, [router, state]);
 
   const getView = () => {
-    if (bibleId && bookId) return <ChaptersView />;
-    if (bibleId) return <BooksView />;
-    return <BiblesView />;
+    if (viewType === 'chapters' && bible && book) {
+      return (
+        <ChaptersView
+          bibleId={bible.id}
+          bookId={book.id}
+          onChapterSelected={(chapter) => {
+            router.replace(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
+          }}
+          onBackClick={() => setViewType('books')}
+        />
+      );
+    }
+    if (viewType === 'books' && bible) {
+      return (
+        <BooksView
+          bibleId={bible.id}
+          bookId={book?.id}
+          onBookSelected={(book) => {
+            setBook(book);
+            setViewType('chapters');
+          }}
+          onBackClick={() => setViewType('bibles')}
+        />
+      );
+    }
+    return (
+      <BiblesView
+        bible={bible}
+        onBibleSelected={(bible) => {
+          setBible(bible);
+          setViewType('books');
+        }}
+      />
+    );
   };
 
   return (
@@ -39,7 +74,9 @@ export default function Home() {
         <link rel="icon" href="/bible.png" />
       </Head>
 
-      {isLoaded && !passage ? getView() : <PageSpinner />}
+      {isLoaded && !state ? getView() : <PageSpinner />}
     </>
   );
 }
+
+type ViewType = 'bibles' | 'books' | 'chapters';
