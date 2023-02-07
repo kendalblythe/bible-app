@@ -13,15 +13,16 @@ import {
   PageSpinner,
 } from '../components';
 import { useLocalStorageState, usePageLoading, useTranslation } from '../hooks';
-import { localStorageKey, LocalStorageState } from '../types/ui';
+import { localStorageKey, LocalStorageState, ViewType } from '../types/ui';
 
 export interface ChapterViewProps {
   bible: BibleSummary;
   book: BookSummary;
   chapter: Chapter;
+  onViewTypeChange: (viewType: ViewType) => void;
 }
 
-export const ChapterView = ({ bible, book, chapter }: ChapterViewProps) => {
+export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterViewProps) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { isPageLoading } = usePageLoading();
@@ -67,15 +68,15 @@ export const ChapterView = ({ bible, book, chapter }: ChapterViewProps) => {
               )}
             </button>
           ) : null}
-          <button className="btn btn-sm">
+          <button className="btn btn-sm" onClick={() => onViewTypeChange('bibles')}>
             {bible.abbreviationLocal}
             <ButtonDownIcon />
           </button>
-          <button className="btn btn-sm">
+          <button className="btn btn-sm" onClick={() => onViewTypeChange('books')}>
             {book.name}
             <ButtonDownIcon />
           </button>
-          <button className="btn btn-sm">
+          <button className="btn btn-sm" onClick={() => onViewTypeChange('chapters')}>
             {chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number}
             <ButtonDownIcon />
           </button>

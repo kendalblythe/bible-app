@@ -1,12 +1,19 @@
+import { useState } from 'react';
+
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { ParsedUrlQuery } from 'querystring';
 
 import { getChapter } from '../../../../api/apis';
 import { getBible, getBook } from '../../../../api/cache';
-import { BibleSummary, Book, Chapter } from '../../../../api/types';
-import { ChapterView, ErrorView } from '../../../../views';
+import { BibleSummary, Book, BookSummary, Chapter } from '../../../../api/types';
+import { PageSpinner } from '../../../../components';
+import { usePageLoading } from '../../../../hooks';
+import { ViewType } from '../../../../types/ui';
+import { popStack } from '../../../../utils/array';
+import { BiblesView, BooksView, ChaptersView, ChapterView, ErrorView } from '../../../../views';
 
 export interface ChapterPageProps {
   bible?: BibleSummary;
@@ -16,9 +23,78 @@ export interface ChapterPageProps {
 
 export default function ChapterPage(props: ChapterPageProps) {
   const { bible, book, chapter } = props;
+  const router = useRouter();
+  const { isPageLoading } = usePageLoading();
+
+  // state
+  const [viewTypeStack, setViewTypeStack] = useState<ViewType[]>([]);
+  const [updatedBible, setUpdatedBible] = useState<BibleSummary | undefined>();
+  const [updatedBook, setUpdatedBook] = useState<BookSummary | undefined>();
 
   // handle query error
   if (!bible || !book || !chapter) return <ErrorView />;
+
+  const getView = () => {
+    if (viewTypeStack.length > 0) {
+      const viewType = viewTypeStack[viewTypeStack.length - 1];
+      switch (viewType) {
+        case 'bibles':
+          return (
+            <BiblesView
+              bible={updatedBible ?? bible}
+              onBibleSelected={(bible) => {
+                setUpdatedBible(bible);
+                setViewTypeStack([...viewTypeStack, 'books']);
+              }}
+              onBackClick={() => {
+                setUpdatedBible(undefined);
+                setViewTypeStack(popStack(viewTypeStack));
+              }}
+            />
+          );
+        case 'books':
+          return (
+            <BooksView
+              bibleId={updatedBible?.id ?? bible.id}
+              bookId={updatedBook?.id ?? book.id}
+              onBookSelected={(book) => {
+                setUpdatedBook(book);
+                setViewTypeStack([...viewTypeStack, 'chapters']);
+              }}
+              onBackClick={() => {
+                setUpdatedBook(undefined);
+                setViewTypeStack(popStack(viewTypeStack));
+              }}
+            />
+          );
+        case 'chapters':
+          return (
+            <ChaptersView
+              bibleId={updatedBible?.id ?? bible.id}
+              bookId={updatedBook?.id ?? book.id}
+              chapterId={chapter.id}
+              onChapterSelected={(chapter, book, bible) => {
+                router.push(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
+                setViewTypeStack([]);
+                setUpdatedBible(undefined);
+                setUpdatedBook(undefined);
+              }}
+              onBackClick={() => {
+                setViewTypeStack(popStack(viewTypeStack));
+              }}
+            />
+          );
+      }
+    }
+    return (
+      <ChapterView
+        bible={bible}
+        book={book}
+        chapter={chapter}
+        onViewTypeChange={(viewType) => setViewTypeStack([viewType])}
+      />
+    );
+  };
 
   return (
     <>
@@ -30,7 +106,9 @@ export default function ChapterPage(props: ChapterPageProps) {
         <link rel="icon" href="/bible.png" />
       </Head>
 
-      <ChapterView bible={bible} book={book} chapter={chapter} />
+      {getView()}
+
+      {isPageLoading ? <PageSpinner /> : null}
     </>
   );
 }

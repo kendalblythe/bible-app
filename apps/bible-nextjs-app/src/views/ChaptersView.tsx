@@ -2,7 +2,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 
 import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
-import { ChapterSummary } from '../api/types';
+import { BibleSummary, BookSummary, ChapterSummary } from '../api/types';
 import { PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
 import { useScrollTop, useTranslation } from '../hooks';
 
@@ -10,7 +10,7 @@ export interface ChaptersViewProps {
   bibleId: string;
   bookId: string;
   chapterId?: string;
-  onChapterSelected: (chapter: ChapterSummary) => void;
+  onChapterSelected: (chapter: ChapterSummary, book: BookSummary, bible: BibleSummary) => void;
   onBackClick: () => void;
 }
 export const ChaptersView = ({
@@ -60,7 +60,7 @@ export const ChaptersView = ({
                     key={chapter.id}
                     className="btn-ghost btn-sm w-24 mx-0 my-2"
                     title={t('ChaptersView.intro.button.label')}
-                    onClick={() => onChapterSelected(chapter)}
+                    onClick={() => onChapterSelected(chapter, book, bible)}
                   >
                     <BsInfoCircle className="inline-block mx-auto mb-0.5" />
                   </button>
@@ -68,7 +68,7 @@ export const ChaptersView = ({
                   <button
                     key={chapter.id}
                     className="btn-ghost btn-sm w-24 mx-0 my-2"
-                    onClick={() => onChapterSelected(chapter)}
+                    onClick={() => onChapterSelected(chapter, book, bible)}
                   >
                     {chapter.number}
                   </button>
