@@ -89,3 +89,5 @@ const makeBibleAbbreviationUnique = (bibles: BibleSummary[]): void => {
     }
   }
 };
+
+export const getChapterId = (bookId: string, chapterNumber: string) => `${bookId}.${chapterNumber}`;

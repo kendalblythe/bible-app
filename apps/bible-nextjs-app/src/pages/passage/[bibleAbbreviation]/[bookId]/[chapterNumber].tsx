@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMutation } from 'react-query';
 
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
@@ -13,6 +14,7 @@ import { PageSpinner } from '../../../../components';
 import { usePageLoading } from '../../../../hooks';
 import { ViewType } from '../../../../types/ui';
 import { popStack } from '../../../../utils/array';
+import { getChapterId } from '../../../../utils/bible';
 import { BiblesView, BooksView, ChaptersView, ChapterView, ErrorView } from '../../../../views';
 
 export interface ChapterPageProps {
@@ -31,6 +33,16 @@ export default function ChapterPage(props: ChapterPageProps) {
   const [updatedBible, setUpdatedBible] = useState<BibleSummary | undefined>();
   const [updatedBook, setUpdatedBook] = useState<BookSummary | undefined>();
 
+  // mutations
+  const chapterExistsMutation = useMutation(async (bible: BibleSummary) => {
+    if (book && chapter) {
+      const chapterId = getChapterId(book.id, chapter.number);
+      const bibleChapter = await getChapter(bible.id, chapterId);
+      return !!bibleChapter;
+    }
+    return false;
+  });
+
   // handle query error
   if (!bible || !book || !chapter) return <ErrorView />;
 
@@ -42,9 +54,19 @@ export default function ChapterPage(props: ChapterPageProps) {
           return (
             <BiblesView
               bible={updatedBible ?? bible}
-              onBibleSelected={(bible) => {
-                setUpdatedBible(bible);
-                setViewTypeStack([...viewTypeStack, 'books']);
+              onBibleSelected={async (bible) => {
+                // check to determine if the chapter exists in the selected bible
+                if (await chapterExistsMutation.mutateAsync(bible)) {
+                  // chapter exists - go to chapter in selected bible
+                  router.push(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
+                  setViewTypeStack([]);
+                  setUpdatedBible(undefined);
+                  setUpdatedBook(undefined);
+                } else {
+                  // chapter does not exist - user must select a book
+                  setUpdatedBible(bible);
+                  setViewTypeStack([...viewTypeStack, 'books']);
+                }
               }}
               onBackClick={() => {
                 setUpdatedBible(undefined);
@@ -108,7 +130,7 @@ export default function ChapterPage(props: ChapterPageProps) {
 
       {getView()}
 
-      {isPageLoading ? <PageSpinner /> : null}
+      {isPageLoading || chapterExistsMutation.isLoading ? <PageSpinner /> : null}
     </>
   );
 }
@@ -125,7 +147,7 @@ export const getServerSideProps: GetServerSideProps<ChapterPageProps, QParams> =
   if (params) {
     try {
       const { bibleAbbreviation, bookId, chapterNumber } = params;
-      const chapterId = `${bookId}.${chapterNumber}`;
+      const chapterId = getChapterId(bookId, chapterNumber);
       const bible = await getBible(bibleAbbreviation);
       const book = bible ? await getBook(bible.id, bookId) : null;
       const chapter = bible ? await getChapter(bible.id, chapterId) : null;
