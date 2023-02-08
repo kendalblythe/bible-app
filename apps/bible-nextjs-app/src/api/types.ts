@@ -84,3 +84,6 @@ export interface Chapter extends ChapterSummary {
   previous: AdjacentChapter;
   copyright: string;
 }
+export interface ChapterQueryParams {
+  includeNotes?: boolean;
+}

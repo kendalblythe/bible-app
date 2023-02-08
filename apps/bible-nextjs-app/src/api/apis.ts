@@ -4,7 +4,15 @@ import qs from 'qs';
 
 import { getLatestBibleVersions } from '../utils/bible';
 import axios from './axios';
-import { Bible, BibleSummary, Book, BookQueryParams, BookSummary, Chapter } from './types';
+import {
+  Bible,
+  BibleSummary,
+  Book,
+  BookQueryParams,
+  BookSummary,
+  Chapter,
+  ChapterQueryParams,
+} from './types';
 
 export const getBibles = async (): Promise<BibleSummary[]> => {
   const response = await axios.get('/bibles');
@@ -41,9 +49,16 @@ export const getBook = async (
   }
 };
 
-export const getChapter = async (bibleId: string, chapterId: string): Promise<Chapter | null> => {
+export const getChapter = async (
+  bibleId: string,
+  chapterId: string,
+  params?: ChapterQueryParams
+): Promise<Chapter | null> => {
   try {
-    const response = await axios.get(`/bibles/${bibleId}/chapters/${chapterId}`);
+    const query = qs.stringify({
+      'include-notes': params?.includeNotes ?? true,
+    });
+    const response = await axios.get(`/bibles/${bibleId}/chapters/${chapterId}?${query}`);
     return response.data.data as Chapter;
   } catch (err: unknown) {
     if (isAxiosError(err)) {
