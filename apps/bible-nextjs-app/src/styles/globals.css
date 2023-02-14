@@ -2,19 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply mx-auto max-w-[800px];
+:root {
+  @apply text-black dark:text-white bg-white dark:bg-black;
 }
 
-:root .scripture-styles {
-  @apply text-lg text-inherit;
-  font-family: inherit;
+:root body {
+  @apply mx-auto max-w-[70ch] font-sans text-lg;
 }
 
-:root .scripture-styles p {
-  @apply indent-8 mt-4;
-}
-
-:root .scripture-styles p .v {
-  @apply text-sm align-text-top mx-1 font-bold;
+:root .scripture-styles .wj {
+  @apply text-red-700 dark:text-red-300;
 }

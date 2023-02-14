@@ -10,6 +10,7 @@ import es from '../locales/es.json';
 import he from '../locales/he.json';
 
 import '../styles/globals.css';
+import '../styles/scripture-styles.css';
 
 const queryClient = new QueryClient();
 
