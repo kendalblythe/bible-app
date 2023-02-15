@@ -255,11 +255,10 @@
 }
 .scripture-styles [class^='p'] {
   text-indent: 1.5rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
 }
 .scripture-styles .m {
-  text-indent: 0 !important;
+  text-indent: 1.5rem;
 }
 .scripture-styles .pmo {
   text-indent: 0;
@@ -324,7 +323,7 @@
   margin-right: 0em;
 }
 .scripture-styles .b {
-  height: 25px;
+  height: 1rem;
 }
 .scripture-styles [class^='q'] {
   padding-left: 1em;
@@ -509,8 +508,7 @@
   font-weight: bold;
   font-style: italic;
   font-size: inherit;
-  margin-bottom: 15px;
-  margin-top: 25px;
+  margin-top: 1rem;
 }
 .scripture-styles .sr {
   font-weight: normal;
@@ -525,6 +523,7 @@
   font-style: italic;
   text-align: center;
   letter-spacing: normal;
+  margin-top: 0.5rem;
 }
 .scripture-styles .rq {
   font-size: inherit;
