@@ -13,7 +13,6 @@ import { BibleSummary, Book, BookSummary, Chapter } from '../../../../api/types'
 import { PageSpinner } from '../../../../components';
 import { usePageLoading } from '../../../../hooks';
 import { ViewType } from '../../../../types/ui';
-import { popStack } from '../../../../utils/array';
 import { getChapterId } from '../../../../utils/bible';
 import { BiblesView, BooksView, ChaptersView, ChapterView, ErrorView } from '../../../../views';
 
@@ -29,7 +28,7 @@ export default function ChapterPage(props: ChapterPageProps) {
   const { isPageLoading } = usePageLoading();
 
   // state
-  const [viewTypeStack, setViewTypeStack] = useState<ViewType[]>([]);
+  const [viewType, setViewType] = useState<ViewType | undefined>();
   const [updatedBible, setUpdatedBible] = useState<BibleSummary | undefined>();
   const [updatedBook, setUpdatedBook] = useState<BookSummary | undefined>();
 
@@ -46,75 +45,70 @@ export default function ChapterPage(props: ChapterPageProps) {
   // handle query error
   if (!bible || !book || !chapter) return <ErrorView />;
 
+  const resetView = () => {
+    setViewType(undefined);
+    setUpdatedBible(undefined);
+    setUpdatedBook(undefined);
+  };
+
   const getView = () => {
-    if (viewTypeStack.length > 0) {
-      const viewType = viewTypeStack[viewTypeStack.length - 1];
-      switch (viewType) {
-        case 'bibles':
-          return (
-            <BiblesView
-              bible={updatedBible ?? bible}
-              onBibleSelected={async (bible) => {
-                // check to determine if the chapter exists in the selected bible
-                if (await chapterExistsMutation.mutateAsync(bible)) {
-                  // chapter exists - go to chapter in selected bible
-                  router.push(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
-                  setViewTypeStack([]);
-                  setUpdatedBible(undefined);
-                  setUpdatedBook(undefined);
-                } else {
-                  // chapter does not exist - user must select a book
-                  setUpdatedBible(bible);
-                  setViewTypeStack([...viewTypeStack, 'books']);
-                }
-              }}
-              onBackClick={() => {
-                setUpdatedBible(undefined);
-                setViewTypeStack(popStack(viewTypeStack));
-              }}
-            />
-          );
-        case 'books':
-          return (
-            <BooksView
-              bibleId={updatedBible?.id ?? bible.id}
-              bookId={updatedBook?.id ?? book.id}
-              onBookSelected={(book) => {
-                setUpdatedBook(book);
-                setViewTypeStack([...viewTypeStack, 'chapters']);
-              }}
-              onBackClick={() => {
-                setUpdatedBook(undefined);
-                setViewTypeStack(popStack(viewTypeStack));
-              }}
-            />
-          );
-        case 'chapters':
-          return (
-            <ChaptersView
-              bibleId={updatedBible?.id ?? bible.id}
-              bookId={updatedBook?.id ?? book.id}
-              chapterId={chapter.id}
-              onChapterSelected={(chapter, book, bible) => {
+    switch (viewType) {
+      case 'bibles':
+        return (
+          <BiblesView
+            bible={updatedBible ?? bible}
+            onBibleSelected={async (bible) => {
+              // check to determine if the chapter exists in the selected bible
+              if (await chapterExistsMutation.mutateAsync(bible)) {
+                // chapter exists - go to chapter in selected bible
                 router.push(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
-                setViewTypeStack([]);
-                setUpdatedBible(undefined);
-                setUpdatedBook(undefined);
-              }}
-              onBackClick={() => {
-                setViewTypeStack(popStack(viewTypeStack));
-              }}
-            />
-          );
-      }
+                resetView();
+              } else {
+                // chapter does not exist - user must select a book
+                setUpdatedBible(bible);
+                setViewType('books');
+              }
+            }}
+            onGoBack={resetView}
+          />
+        );
+      case 'books':
+        return (
+          <BooksView
+            bibleId={updatedBible?.id ?? bible.id}
+            bookId={updatedBook?.id ?? book.id}
+            onBookSelected={(book) => {
+              setUpdatedBook(book);
+              setViewType('chapters');
+            }}
+            onGoBack={resetView}
+            onGoBibles={() => {
+              setViewType('bibles');
+            }}
+          />
+        );
+      case 'chapters':
+        return (
+          <ChaptersView
+            bibleId={updatedBible?.id ?? bible.id}
+            bookId={updatedBook?.id ?? book.id}
+            chapterId={chapter.id}
+            onChapterSelected={(chapter, book, bible) => {
+              router.push(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
+              resetView();
+            }}
+            onGoBack={resetView}
+            onGoBibles={() => {
+              setViewType('bibles');
+            }}
+            onGoBooks={() => {
+              setViewType('books');
+            }}
+          />
+        );
     }
     return (
-      <ChapterView
-        bible={bible}
-        book={book}
-        chapter={chapter}
-        onViewTypeChange={(viewType) => setViewTypeStack([viewType])}
-      />
+      <ChapterView bible={bible} book={book} chapter={chapter} onViewTypeChange={setViewType} />
     );
   };
 

@@ -19,10 +19,10 @@ import { getLanguageDisplayName } from '../utils/bible';
 export interface BiblesViewProps {
   bible?: BibleSummary;
   onBibleSelected: (bible: BibleSummary) => void;
-  onBackClick?: () => void;
+  onGoBack?: () => void;
 }
 
-export const BiblesView = ({ bible, onBibleSelected, onBackClick }: BiblesViewProps) => {
+export const BiblesView = ({ bible, onBibleSelected, onGoBack }: BiblesViewProps) => {
   const { t } = useTranslation();
   useScrollTop();
 
@@ -43,7 +43,7 @@ export const BiblesView = ({ bible, onBibleSelected, onBackClick }: BiblesViewPr
     <>
       <PageHeader>
         <div className="flex-1">
-          <PageHeading onBackClick={onBackClick}>{t('BiblesView.page.title')}</PageHeading>
+          <PageHeading onGoBack={onGoBack}>{t('BiblesView.page.title')}</PageHeading>
         </div>
         {languages ? (
           <div className="flex-none gap-2 ml-4">

@@ -39,7 +39,12 @@ export default function Home() {
           onChapterSelected={(chapter) => {
             router.replace(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
           }}
-          onBackClick={() => setViewType('books')}
+          onGoBibles={() => {
+            setViewType('bibles');
+          }}
+          onGoBooks={() => {
+            setViewType('books');
+          }}
         />
       );
     }
@@ -52,7 +57,9 @@ export default function Home() {
             setBook(book);
             setViewType('chapters');
           }}
-          onBackClick={() => setViewType('bibles')}
+          onGoBibles={() => {
+            setViewType('bibles');
+          }}
         />
       );
     }

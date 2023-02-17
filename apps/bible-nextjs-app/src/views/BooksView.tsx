@@ -18,10 +18,11 @@ export interface BooksViewProps {
   bibleId: string;
   bookId?: string;
   onBookSelected: (book: BookSummary) => void;
-  onBackClick: () => void;
+  onGoBack?: () => void;
+  onGoBibles: () => void;
 }
 
-export const BooksView = ({ bibleId, onBookSelected, onBackClick }: BooksViewProps) => {
+export const BooksView = ({ bibleId, onBookSelected, onGoBack, onGoBibles }: BooksViewProps) => {
   const { t } = useTranslation();
   useScrollTop();
 
@@ -47,13 +48,13 @@ export const BooksView = ({ bibleId, onBookSelected, onBackClick }: BooksViewPro
     <>
       <PageHeader>
         <div className="flex-1">
-          <PageHeading onBackClick={onBackClick}>{t('BooksView.page.title')}</PageHeading>
+          <PageHeading onGoBack={onGoBack}>{t('BooksView.page.title')}</PageHeading>
         </div>
         {bible ? (
           <div className="flex-none gap-2 ml-4">
-            <span className="badge badge-lg" title={bible.nameLocal}>
+            <button className="btn btn-sm" onClick={onGoBibles}>
               {bible.abbreviationLocal}
-            </span>
+            </button>
           </div>
         ) : null}
       </PageHeader>

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { BsChevronDown, BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import { useRouter } from 'next/router';
 
@@ -12,6 +11,8 @@ import {
   PageMain,
   PageSpinner,
 } from '../components';
+import { NextIcon } from '../components/NextIcon';
+import { PreviousIcon } from '../components/PreviousIcon';
 import { useLocalStorageState, usePageLoading, useTranslation } from '../hooks';
 import { localStorageKey, LocalStorageState, ViewType } from '../types/ui';
 
@@ -61,25 +62,20 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
               title={t('ChapterView.previous.button.label')}
               onClick={onPreviousChapterClick}
             >
-              {bible.language.scriptDirection === 'rtl' ? (
-                <BsChevronRight size="1.25rem" />
-              ) : (
-                <BsChevronLeft size="1.25rem" />
-              )}
+              <PreviousIcon dir={bible.language.scriptDirection} />
             </button>
           ) : null}
-          <button className="btn btn-sm" onClick={() => onViewTypeChange('bibles')}>
-            {bible.abbreviationLocal}
-            <ButtonDownIcon />
-          </button>
-          <button className="btn btn-sm" onClick={() => onViewTypeChange('books')}>
-            {book.name}
-            <ButtonDownIcon />
-          </button>
-          <button className="btn btn-sm" onClick={() => onViewTypeChange('chapters')}>
-            {chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number}
-            <ButtonDownIcon />
-          </button>
+          <div className="btn-group">
+            <button className="btn btn-sm" onClick={() => onViewTypeChange('bibles')}>
+              {bible.abbreviationLocal}
+            </button>
+            <button className="btn btn-sm mx-px" onClick={() => onViewTypeChange('books')}>
+              {book.name}
+            </button>
+            <button className="btn btn-sm" onClick={() => onViewTypeChange('chapters')}>
+              {chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number}
+            </button>
+          </div>
         </div>
         <div className="flex-none gap-2 ml-4">
           {chapter.next ? (
@@ -88,11 +84,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
               title={t('ChapterView.next.button.label')}
               onClick={onNextChapterClick}
             >
-              {bible.language.scriptDirection === 'rtl' ? (
-                <BsChevronLeft size="1.25rem" />
-              ) : (
-                <BsChevronRight size="1.25rem" />
-              )}
+              <NextIcon dir={bible.language.scriptDirection} />
             </button>
           ) : null}
         </div>
@@ -110,5 +102,3 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
     </>
   );
 };
-
-const ButtonDownIcon = () => <BsChevronDown size="0.75rem" className="ml-2" />;
