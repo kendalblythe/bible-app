@@ -7,7 +7,7 @@
 }
 
 :root body {
-  @apply mx-auto max-w-[65ch] font-sans text-lg;
+  @apply mx-auto max-w-[68ch] font-sans text-lg;
 }
 
 :root .scripture-styles .wj {

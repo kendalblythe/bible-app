@@ -15,20 +15,26 @@ import {
 import { useScrollTop, useTranslation } from '../hooks';
 
 export interface BooksViewProps {
-  bibleId: string;
-  bookId?: string;
+  currentBibleId: string;
+  currentBookId?: string;
   onBookSelected: (book: BookSummary) => void;
   onGoBack?: () => void;
   onGoBibles: () => void;
 }
 
-export const BooksView = ({ bibleId, onBookSelected, onGoBack, onGoBibles }: BooksViewProps) => {
+export const BooksView = ({
+  currentBibleId,
+  currentBookId,
+  onBookSelected,
+  onGoBack,
+  onGoBibles,
+}: BooksViewProps) => {
   const { t } = useTranslation();
   useScrollTop();
 
   // queries
-  const bibleQueryResult = useBibleQuery(bibleId);
-  const booksQueryResult = useBooksQuery(bibleId);
+  const bibleQueryResult = useBibleQuery(currentBibleId);
+  const booksQueryResult = useBooksQuery(currentBibleId);
 
   const bible = bibleQueryResult.data;
   const oldTestamentBooks = booksQueryResult.data?.oldTestamentBooks;
@@ -52,7 +58,7 @@ export const BooksView = ({ bibleId, onBookSelected, onGoBack, onGoBibles }: Boo
         </div>
         {bible ? (
           <div className="flex-none gap-2 ml-4">
-            <button className="btn btn-sm" onClick={onGoBibles}>
+            <button className="btn btn-sm text-base" onClick={onGoBibles}>
               {bible.abbreviationLocal}
             </button>
           </div>
@@ -67,6 +73,7 @@ export const BooksView = ({ bibleId, onBookSelected, onGoBack, onGoBibles }: Boo
                 <BookList
                   title={t('BooksView.oldTestament.section.title')}
                   books={oldTestamentBooks}
+                  currentBookId={currentBookId}
                   onBookSelected={onBookSelected}
                 />
               ) : null}
@@ -76,6 +83,7 @@ export const BooksView = ({ bibleId, onBookSelected, onGoBack, onGoBibles }: Boo
                     className="mb-4"
                     title={t('BooksView.apocrypha.section.title')}
                     books={apocryphaBooks}
+                    currentBookId={currentBookId}
                     onBookSelected={onBookSelected}
                   />
                 ) : null}
@@ -83,6 +91,7 @@ export const BooksView = ({ bibleId, onBookSelected, onGoBack, onGoBibles }: Boo
                   <BookList
                     title={t('BooksView.newTestament.section.title')}
                     books={newTestamentBooks}
+                    currentBookId={currentBookId}
                     onBookSelected={onBookSelected}
                   />
                 ) : null}

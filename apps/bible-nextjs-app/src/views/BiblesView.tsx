@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import clsx from 'clsx';
+
 import { ErrorView } from '.';
 import { useBiblesQuery } from '../api/queries';
 import { BibleSummary } from '../api/types';
@@ -17,17 +19,17 @@ import { useScrollTop, useTranslation } from '../hooks';
 import { getLanguageDisplayName } from '../utils/bible';
 
 export interface BiblesViewProps {
-  bible?: BibleSummary;
+  currentBible?: BibleSummary;
   onBibleSelected: (bible: BibleSummary) => void;
   onGoBack?: () => void;
 }
 
-export const BiblesView = ({ bible, onBibleSelected, onGoBack }: BiblesViewProps) => {
+export const BiblesView = ({ currentBible, onBibleSelected, onGoBack }: BiblesViewProps) => {
   const { t } = useTranslation();
   useScrollTop();
 
   // state
-  const [languageId, setLanguageId] = useState(bible?.language.id ?? 'eng');
+  const [languageId, setLanguageId] = useState(currentBible?.language.id ?? 'eng');
 
   // queries
   const biblesQueryResult = useBiblesQuery();
@@ -47,7 +49,7 @@ export const BiblesView = ({ bible, onBibleSelected, onGoBack }: BiblesViewProps
         </div>
         {languages ? (
           <div className="flex-none gap-2 ml-4">
-            <Label htmlFor="languageSelect" className="hidden sm:flex">
+            <Label htmlFor="languageSelect" className="hidden sm:flex text-base">
               {t('BiblesView.language.select.label')}
             </Label>
             <Select
@@ -55,7 +57,7 @@ export const BiblesView = ({ bible, onBibleSelected, onGoBack }: BiblesViewProps
               value={languageId}
               ariaLabel={t('BiblesView.language.select.aria.label')}
               title={t('BiblesView.language.select.tip.label')}
-              className="max-w-[12rem] md:max-w-xs truncate"
+              className="max-w-[12rem] md:max-w-xs truncate text-base"
               onChange={(e) => setLanguageId(e.target.value)}
             >
               {languages.map((language) => (
@@ -70,17 +72,20 @@ export const BiblesView = ({ bible, onBibleSelected, onGoBack }: BiblesViewProps
 
       {bibles ? (
         <PageMain>
-          <List>
+          <List className="gap-1">
             {bibles
               .filter((bible) => bible.language.id === languageId)
               .map((bible) => (
                 <ButtonListItem
                   key={bible.id}
-                  className="block"
+                  className={clsx(
+                    'block border',
+                    bible.id === currentBible?.id ? 'border-black' : 'border-transparent'
+                  )}
                   onClick={() => onBibleSelected(bible)}
                 >
                   <div className="font-medium">{bible.abbreviationLocal}</div>
-                  <div className="block label label-text p-0">{bible.nameLocal}</div>
+                  <div className="block label label-text text-base p-0">{bible.nameLocal}</div>
                 </ButtonListItem>
               ))}
           </List>

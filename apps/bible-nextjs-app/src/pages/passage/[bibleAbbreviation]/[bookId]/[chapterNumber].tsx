@@ -56,7 +56,7 @@ export default function ChapterPage(props: ChapterPageProps) {
       case 'bibles':
         return (
           <BiblesView
-            bible={updatedBible ?? bible}
+            currentBible={updatedBible ?? bible}
             onBibleSelected={async (bible) => {
               // check to determine if the chapter exists in the selected bible
               if (await chapterExistsMutation.mutateAsync(bible)) {
@@ -75,8 +75,8 @@ export default function ChapterPage(props: ChapterPageProps) {
       case 'books':
         return (
           <BooksView
-            bibleId={updatedBible?.id ?? bible.id}
-            bookId={updatedBook?.id ?? book.id}
+            currentBibleId={updatedBible?.id ?? bible.id}
+            currentBookId={updatedBook?.id ?? book.id}
             onBookSelected={(book) => {
               setUpdatedBook(book);
               setViewType('chapters');
@@ -90,9 +90,9 @@ export default function ChapterPage(props: ChapterPageProps) {
       case 'chapters':
         return (
           <ChaptersView
-            bibleId={updatedBible?.id ?? bible.id}
-            bookId={updatedBook?.id ?? book.id}
-            chapterId={chapter.id}
+            currentBibleId={updatedBible?.id ?? bible.id}
+            currentBookId={updatedBook?.id ?? book.id}
+            currentChapterId={chapter.id}
             onChapterSelected={(chapter, book, bible) => {
               router.push(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
               resetView();

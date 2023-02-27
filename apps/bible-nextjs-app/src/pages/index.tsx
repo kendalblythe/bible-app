@@ -21,8 +21,8 @@ export default function Home() {
 
   // state
   const [viewType, setViewType] = useState<ViewType>('bibles');
-  const [bible, setBible] = useState<BibleSummary | undefined>();
-  const [book, setBook] = useState<BookSummary | undefined>();
+  const [currentBible, setCurrentBible] = useState<BibleSummary | undefined>();
+  const [currentBook, setCurrentBook] = useState<BookSummary | undefined>();
 
   useEffect(() => {
     if (state) {
@@ -31,13 +31,15 @@ export default function Home() {
   }, [router, state]);
 
   const getView = () => {
-    if (viewType === 'chapters' && bible && book) {
+    if (viewType === 'chapters' && currentBible && currentBook) {
       return (
         <ChaptersView
-          bibleId={bible.id}
-          bookId={book.id}
+          currentBibleId={currentBible.id}
+          currentBookId={currentBook.id}
           onChapterSelected={(chapter) => {
-            router.replace(`/passage/${bible.abbreviation}/${book.id}/${chapter.number}`);
+            router.replace(
+              `/passage/${currentBible.abbreviation}/${currentBook.id}/${chapter.number}`
+            );
           }}
           onGoBibles={() => {
             setViewType('bibles');
@@ -48,13 +50,13 @@ export default function Home() {
         />
       );
     }
-    if (viewType === 'books' && bible) {
+    if (viewType === 'books' && currentBible) {
       return (
         <BooksView
-          bibleId={bible.id}
-          bookId={book?.id}
+          currentBibleId={currentBible.id}
+          currentBookId={currentBook?.id}
           onBookSelected={(book) => {
-            setBook(book);
+            setCurrentBook(book);
             setViewType('chapters');
           }}
           onGoBibles={() => {
@@ -65,9 +67,9 @@ export default function Home() {
     }
     return (
       <BiblesView
-        bible={bible}
+        currentBible={currentBible}
         onBibleSelected={(bible) => {
-          setBible(bible);
+          setCurrentBible(bible);
           setViewType('books');
         }}
       />
@@ -79,7 +81,7 @@ export default function Home() {
       <Head>
         <title>Bible Next.js App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/bible.png" />
+        <link rel="icon" href="/currentBible.png" />
       </Head>
 
       {isLoaded && !state ? getView() : null}

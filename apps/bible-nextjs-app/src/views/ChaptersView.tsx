@@ -1,5 +1,7 @@
 import { BsInfoCircle } from 'react-icons/bs';
 
+import clsx from 'clsx';
+
 import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
 import { BibleSummary, BookSummary, ChapterSummary } from '../api/types';
@@ -7,17 +9,18 @@ import { PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
 import { useScrollTop, useTranslation } from '../hooks';
 
 export interface ChaptersViewProps {
-  bibleId: string;
-  bookId: string;
-  chapterId?: string;
+  currentBibleId: string;
+  currentBookId: string;
+  currentChapterId?: string;
   onChapterSelected: (chapter: ChapterSummary, book: BookSummary, bible: BibleSummary) => void;
   onGoBack?: () => void;
   onGoBibles: () => void;
   onGoBooks: () => void;
 }
 export const ChaptersView = ({
-  bibleId,
-  bookId,
+  currentBibleId,
+  currentBookId,
+  currentChapterId,
   onChapterSelected,
   onGoBack,
   onGoBibles,
@@ -27,8 +30,8 @@ export const ChaptersView = ({
   useScrollTop();
 
   // queries
-  const bibleQueryResult = useBibleQuery(bibleId);
-  const bookQueryResult = useBookQuery(bibleId, bookId, { includeChapters: true });
+  const bibleQueryResult = useBibleQuery(currentBibleId);
+  const bookQueryResult = useBookQuery(currentBibleId, currentBookId, { includeChapters: true });
 
   const bible = bibleQueryResult.data;
   const book = bookQueryResult.data;
@@ -47,10 +50,10 @@ export const ChaptersView = ({
         {bible && book ? (
           <div className="flex-none gap-2 ml-4">
             <div className="btn-group">
-              <button className="btn btn-sm" onClick={onGoBibles}>
+              <button className="btn btn-sm text-base" onClick={onGoBibles}>
                 {bible.abbreviationLocal}
               </button>{' '}
-              <button className="btn btn-sm ml-px" onClick={onGoBooks}>
+              <button className="btn btn-sm text-base ml-px" onClick={onGoBooks}>
                 {book.name}
               </button>
             </div>
@@ -66,7 +69,7 @@ export const ChaptersView = ({
                 chapter.number === 'intro' ? (
                   <button
                     key={chapter.id}
-                    className="btn-ghost btn-sm w-24 mx-0 my-2"
+                    className={getButtonClassName(chapter, currentChapterId)}
                     title={t('ChaptersView.intro.button.label')}
                     onClick={() => onChapterSelected(chapter, book, bible)}
                   >
@@ -75,7 +78,7 @@ export const ChaptersView = ({
                 ) : (
                   <button
                     key={chapter.id}
-                    className="btn-ghost btn-sm w-24 mx-0 my-2"
+                    className={getButtonClassName(chapter, currentChapterId)}
                     onClick={() => onChapterSelected(chapter, book, bible)}
                   >
                     {chapter.number}
@@ -91,3 +94,12 @@ export const ChaptersView = ({
     </>
   );
 };
+
+const getButtonClassName = (
+  chapter: ChapterSummary,
+  currentChapterId: string | undefined
+): string =>
+  clsx(
+    'btn-ghost btn-md text-base w-24 mr-1 mb-1 border',
+    chapter.id === currentChapterId ? 'border-black' : 'border-transparent'
+  );

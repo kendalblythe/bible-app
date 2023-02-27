@@ -66,13 +66,16 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
             </button>
           ) : null}
           <div className="btn-group">
-            <button className="btn btn-sm" onClick={() => onViewTypeChange('bibles')}>
+            <button className="btn btn-sm text-base" onClick={() => onViewTypeChange('bibles')}>
               {bible.abbreviationLocal}
             </button>
-            <button className="btn btn-sm mx-px" onClick={() => onViewTypeChange('books')}>
+            <button
+              className="btn btn-sm text-base mx-px"
+              onClick={() => onViewTypeChange('books')}
+            >
               {book.name}
             </button>
-            <button className="btn btn-sm" onClick={() => onViewTypeChange('chapters')}>
+            <button className="btn btn-sm text-base" onClick={() => onViewTypeChange('chapters')}>
               {chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number}
             </button>
           </div>
