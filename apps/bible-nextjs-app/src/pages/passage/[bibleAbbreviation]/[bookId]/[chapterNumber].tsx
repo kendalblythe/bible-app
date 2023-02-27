@@ -116,7 +116,7 @@ export default function ChapterPage(props: ChapterPageProps) {
     <>
       <Head>
         <title>
-          {`BibleSummary Next.js App - ${book.name} ${chapter.number} ${bible.abbreviationLocal}`}
+          {`Bible Next.js App - ${book.name} ${chapter.number} ${bible.abbreviationLocal}`}
         </title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/bible.png" />
