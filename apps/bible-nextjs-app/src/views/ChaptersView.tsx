@@ -100,6 +100,6 @@ const getButtonClassName = (
   currentChapterId: string | undefined
 ): string =>
   clsx(
-    'btn-ghost btn-md text-base w-24 mr-1 mb-1 border',
+    'btn-ghost btn-md text-base w-20 mr-1 mb-1 border',
     chapter.id === currentChapterId ? 'border-black' : 'border-transparent'
   );

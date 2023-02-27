@@ -57,7 +57,7 @@ export const BiblesView = ({ currentBible, onBibleSelected, onGoBack }: BiblesVi
               value={languageId}
               ariaLabel={t('BiblesView.language.select.aria.label')}
               title={t('BiblesView.language.select.tip.label')}
-              className="max-w-[12rem] md:max-w-xs truncate text-base"
+              className="max-w-[10rem] sm:max-w-[12rem] md:max-w-xs truncate text-base"
               onChange={(e) => setLanguageId(e.target.value)}
             >
               {languages.map((language) => (

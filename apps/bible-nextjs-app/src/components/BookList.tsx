@@ -31,7 +31,7 @@ export const BookList = ({
         )}
         onClick={() => onBookSelected(book)}
       >
-        <span className="truncate">{book.name}</span>
+        <span className="truncate max-w-full inline-block">{book.name}</span>
       </ButtonListItem>
     ))}
   </ul>
