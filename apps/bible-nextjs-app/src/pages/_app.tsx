@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 
 import en from '../locales/en.json';
 import es from '../locales/es.json';
-import he from '../locales/he.json';
 
 import '../styles/globals.css';
 import '../styles/scripture-styles.css';
@@ -15,7 +14,7 @@ import '../styles/scripture-styles.css';
 const queryClient = new QueryClient();
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const messages = { en, es, he } as any;
+const messages = { en, es } as any;
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

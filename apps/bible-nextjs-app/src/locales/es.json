@@ -11,7 +11,7 @@
   "ChaptersView.intro.button.label": "Intro",
   "ErrorView.page.title": "API.Bible Service Error",
   "ErrorView.page.error.msg": "An error occurred while communicating with the API.Bible service.\n\nTry refreshing the page or come back later.",
-  "PageHeading.back.button.label": "Go back",
+  "PageHeading.back.button.label": "Back to Bible passage",
   "ChapterView.previous.button.label": "Previous chapter",
   "ChapterView.next.button.label": "Next chapter",
   "PageFooter.about.section.title": "About {name}",

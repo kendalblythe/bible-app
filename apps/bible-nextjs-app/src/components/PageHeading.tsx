@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { FaBible } from 'react-icons/fa';
+import { RiArrowGoBackLine } from 'react-icons/ri';
 
 import { useTranslation } from '../hooks';
 
@@ -15,11 +15,11 @@ export const PageHeading = ({ children, onGoBack }: PageHeadingProps) => {
     <>
       {onGoBack ? (
         <button
-          className="btn btn-square btn-outline btn-sm w-12 mr-4"
+          className="btn btn-sm btn-ghost w-12 mr-2"
           title={t('PageHeading.back.button.label')}
           onClick={() => onGoBack()}
         >
-          <FaBible />
+          <RiArrowGoBackLine size="1.25rem" />
         </button>
       ) : null}
       <h1 className="text-2xl font-bold pb-1">{children}</h1>

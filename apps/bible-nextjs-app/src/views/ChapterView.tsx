@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import { useRouter } from 'next/router';
 
@@ -11,8 +12,6 @@ import {
   PageMain,
   PageSpinner,
 } from '../components';
-import { NextIcon } from '../components/NextIcon';
-import { PreviousIcon } from '../components/PreviousIcon';
 import { useLocalStorageState, usePageLoading, useTranslation } from '../hooks';
 import { localStorageKey, LocalStorageState, ViewType } from '../types/ui';
 
@@ -54,7 +53,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
 
   return (
     <>
-      <PageHeader dir={bible.language.scriptDirection}>
+      <PageHeader>
         <div className="flex-1 gap-2">
           {chapter.previous ? (
             <button
@@ -62,7 +61,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
               title={t('ChapterView.previous.button.label')}
               onClick={onPreviousChapterClick}
             >
-              <PreviousIcon dir={bible.language.scriptDirection} />
+              <BsChevronLeft size="1.25rem" />
             </button>
           ) : null}
           <div className="btn-group">
@@ -87,7 +86,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
               title={t('ChapterView.next.button.label')}
               onClick={onNextChapterClick}
             >
-              <NextIcon dir={bible.language.scriptDirection} />
+              <BsChevronRight size="1.25rem" />
             </button>
           ) : null}
         </div>

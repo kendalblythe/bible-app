@@ -1,4 +1,3 @@
-export * from './useLocaleDir';
 export * from './useLocalStorageState';
 export * from './usePageLoading';
 export * from './useScrollTop';
