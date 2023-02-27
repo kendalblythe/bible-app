@@ -25,8 +25,18 @@ export const getBible = async (bibleId: string): Promise<Bible> => {
 };
 
 export const getBooks = async (bibleId: string): Promise<BookSummary[]> => {
-  const response = await axios.get(`/bibles/${bibleId!}/books`);
-  return response.data.data as BookSummary[];
+  const query = qs.stringify({
+    'include-chapters': true,
+  });
+  const response = await axios.get(`/bibles/${bibleId!}/books?${query}`);
+  const books = response.data.data as Book[];
+  return books
+    .filter((book) => book.chapters.length > 0)
+    .map((book) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { chapters, ...bookSummary } = book;
+      return bookSummary as BookSummary;
+    });
 };
 
 export const getBook = async (
@@ -56,7 +66,7 @@ export const getChapter = async (
 ): Promise<Chapter | null> => {
   try {
     const query = qs.stringify({
-      'include-notes': params?.includeNotes ?? true,
+      'include-notes': params?.includeNotes ?? false,
     });
     const response = await axios.get(`/bibles/${bibleId}/chapters/${chapterId}?${query}`);
     return response.data.data as Chapter;

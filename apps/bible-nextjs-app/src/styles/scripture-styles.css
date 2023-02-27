@@ -1,9 +1,11 @@
 .scripture-styles {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
   font-size: 1.125rem;
-  font-family: inherit; /* 'Noto Serif', serif; */
-  line-height: 2rem;
-  color: inherit; /* #111; */
-  margin-top: 0.25rem;
+  line-height: 1.25;
+  margin-top: 1rem;
   -webkit-font-smoothing: antialiased;
 }
 .scripture-styles ol,
@@ -28,12 +30,10 @@
 .scripture-styles .c {
   text-align: center;
   font-weight: bold;
-  font-size: 1.25rem;
 }
 .scripture-styles .ca {
   font-style: italic;
   font-weight: normal;
-  color: inherit; /* #777; */
 }
 .scripture-styles .ca:before {
   content: '(';
@@ -53,13 +53,10 @@
 .scripture-styles .v,
 .scripture-styles .vp,
 .scripture-styles sup[class^='v'] {
-  color: inherit; /* #000; */
   font-size: 0.75rem;
   vertical-align: 0.125em;
   line-height: 0;
-  font-family: inherit; /* sans-serif; */
   font-weight: bold;
-  top: inherit;
 }
 .scripture-styles .v:after,
 .scripture-styles .vp:after,
@@ -80,7 +77,6 @@
 }
 .scripture-styles .x {
   font-size: 1rem;
-  line-height: 1.5;
   box-sizing: border-box;
   display: inline-block;
   position: relative;
@@ -108,14 +104,12 @@
 .scripture-styles .notelink:hover,
 .scripture-styles .notelink:active,
 .scripture-styles .notelink:visited {
-  color: inherit; /* #6a6a6a; */
 }
 .scripture-styles .notelink sup {
   font-size: 0.75rem;
   letter-spacing: -0.03em;
   vertical-align: 0.25em;
   line-height: 0;
-  font-family: inherit; /* sans-serif; */
   font-weight: bold;
 }
 .scripture-styles .notelink + sup:before {
@@ -123,7 +117,6 @@
 }
 .scripture-styles .f {
   font-size: 1rem;
-  line-height: 1.5;
   display: inline-block;
   box-sizing: border-box;
   padding: 0 0.4em;
@@ -148,12 +141,10 @@
   font-weight: bold;
 }
 .scripture-styles .fv {
-  color: inherit; /* #515151; */
   font-size: 0.75rem;
   letter-spacing: -0.03em;
   vertical-align: 0.25em;
   line-height: 0;
-  font-family: inherit; /* sans-serif; */
   font-weight: bold;
 }
 .scripture-styles .fv:after {
@@ -168,9 +159,6 @@
   text-align: center;
   font-weight: bold;
   font-size: 1.75rem;
-  line-height: 50px;
-  margin-top: 25px;
-  margin-bottom: 25px;
 }
 .scripture-styles [class^='ip'] {
   text-indent: 1em;
@@ -221,10 +209,6 @@
 }
 .scripture-styles .iot {
   font-weight: bold;
-  font-size: 1.125rem;
-  line-height: 25px;
-  margin-top: 25px;
-  margin-bottom: 0px;
 }
 .scripture-styles .io,
 .scripture-styles .io1 {
@@ -255,10 +239,11 @@
 }
 .scripture-styles [class^='p'] {
   text-indent: 1.5rem;
-  margin-top: 1rem;
+  line-height: 2;
 }
 .scripture-styles .m {
   text-indent: 1.5rem;
+  line-height: 2;
 }
 .scripture-styles .pmo {
   text-indent: 0;
@@ -323,7 +308,7 @@
   margin-right: 0em;
 }
 .scripture-styles .b {
-  height: 1rem;
+  display: none;
 }
 .scripture-styles [class^='q'] {
   padding-left: 1em;
@@ -357,7 +342,6 @@
 .scripture-styles .qa {
   text-align: center;
   font-style: italic;
-  font-size: 1.125rem;
   margin-left: 0em;
   margin-right: 0em;
 }
@@ -470,12 +454,8 @@
 .scripture-styles .mt1,
 .scripture-styles .mt2 {
   font-size: 1.5rem;
-  line-height: 1;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 .scripture-styles .mt2 {
-  font-size: 1.5rem;
   font-style: italic;
   font-weight: normal;
 }
@@ -487,13 +467,9 @@
   text-align: center;
   font-weight: bold;
   font-size: 1.75rem;
-  line-height: 50px;
-  margin-top: 25px;
-  margin-bottom: 0px;
 }
 .scripture-styles .mr {
   font-size: 0.875rem;
-  margin-bottom: 25px;
   text-align: center;
   font-weight: normal;
   font-style: italic;
@@ -506,27 +482,20 @@
   text-align: center;
   font-weight: bold;
   font-style: italic;
-  font-size: inherit;
-  margin-top: 1rem;
 }
 .scripture-styles .sr {
   font-weight: normal;
   font-style: italic;
   text-align: center;
-  font-size: inherit;
   letter-spacing: normal;
 }
 .scripture-styles .r {
-  font-size: 1.125rem;
   font-weight: normal;
   font-style: italic;
   text-align: center;
   letter-spacing: normal;
-  margin-top: 0.5rem;
 }
 .scripture-styles .rq {
-  font-size: inherit;
-  line-height: 25px;
   font-style: italic;
   text-align: right;
   letter-spacing: normal;
@@ -534,13 +503,11 @@
 .scripture-styles .d {
   font-style: italic;
   text-align: center;
-  font-size: inherit;
   letter-spacing: normal;
 }
 .scripture-styles .sp {
   text-align: left;
   font-weight: normal;
   font-style: italic;
-  font-size: inherit;
   letter-spacing: normal;
 }
