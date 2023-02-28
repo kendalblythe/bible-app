@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 
 import { useTranslation } from '../hooks';
+import { IconButton } from './IconButton';
 
 export interface PageHeadingProps {
   children: ReactNode;
@@ -14,15 +15,13 @@ export const PageHeading = ({ children, onGoBack }: PageHeadingProps) => {
   return (
     <>
       {onGoBack ? (
-        <button
-          className="btn btn-sm btn-ghost w-12 mr-2"
+        <IconButton
+          icon={<RiArrowGoBackLine size="1.25rem" />}
           title={t('PageHeading.back.button.label')}
-          onClick={() => onGoBack()}
-        >
-          <RiArrowGoBackLine size="1.25rem" />
-        </button>
+          onClick={onGoBack}
+        />
       ) : null}
-      <h1 className="text-2xl font-bold pb-1">{children}</h1>
+      <h1 className="text-xl font-bold">{children}</h1>
     </>
   );
 };

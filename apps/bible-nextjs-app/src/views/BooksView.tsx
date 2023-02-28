@@ -11,6 +11,7 @@ import {
   PageHeading,
   PageMain,
   PageSpinner,
+  ButtonGroup,
 } from '../components';
 import { useScrollTop, useTranslation } from '../hooks';
 
@@ -53,14 +54,19 @@ export const BooksView = ({
   return (
     <>
       <PageHeader>
-        <div className="flex-1">
+        <div className="flex-1 gap-2">
           <PageHeading onGoBack={onGoBack}>{t('BooksView.page.title')}</PageHeading>
         </div>
         {bible ? (
-          <div className="flex-none gap-2 ml-4">
-            <button className="btn btn-sm text-base" onClick={onGoBibles}>
-              {bible.abbreviationLocal}
-            </button>
+          <div className="flex-none gap-2">
+            <ButtonGroup
+              buttons={[
+                {
+                  text: bible.abbreviationLocal,
+                  onClick: onGoBibles,
+                },
+              ]}
+            />
           </div>
         ) : null}
       </PageHeader>

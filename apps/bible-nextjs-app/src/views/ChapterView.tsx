@@ -5,7 +5,9 @@ import { useRouter } from 'next/router';
 
 import { BibleSummary, BookSummary, Chapter } from '../api/types';
 import {
+  ButtonGroup,
   FooterSection,
+  IconButton,
   MarkdownText,
   PageFooter,
   PageHeader,
@@ -56,38 +58,39 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
       <PageHeader>
         <div className="flex-1 gap-2">
           {chapter.previous ? (
-            <button
-              className="btn-ghost p-1 mr-2"
+            <IconButton
+              icon={<BsChevronLeft size="1.25rem" />}
               title={t('ChapterView.previous.button.label')}
               onClick={onPreviousChapterClick}
-            >
-              <BsChevronLeft size="1.25rem" />
-            </button>
+            />
           ) : null}
-          <div className="btn-group">
-            <button className="btn btn-sm text-base" onClick={() => onViewTypeChange('bibles')}>
-              {bible.abbreviationLocal}
-            </button>
-            <button
-              className="btn btn-sm text-base mx-px"
-              onClick={() => onViewTypeChange('books')}
-            >
-              {book.name}
-            </button>
-            <button className="btn btn-sm text-base" onClick={() => onViewTypeChange('chapters')}>
-              {chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number}
-            </button>
-          </div>
+          <ButtonGroup
+            buttons={[
+              {
+                text: bible.abbreviationLocal,
+                onClick: () => onViewTypeChange('bibles'),
+              },
+              {
+                text: book.name,
+                onClick: () => onViewTypeChange('books'),
+              },
+              {
+                text:
+                  chapter.number === 'intro'
+                    ? t('ChaptersView.intro.button.label')
+                    : chapter.number,
+                onClick: () => onViewTypeChange('chapters'),
+              },
+            ]}
+          />
         </div>
-        <div className="flex-none gap-2 ml-4">
+        <div className="flex-none gap-2">
           {chapter.next ? (
-            <button
-              className="btn-ghost p-1 mr-2"
+            <IconButton
+              icon={<BsChevronRight size="1.25rem" />}
               title={t('ChapterView.next.button.label')}
               onClick={onNextChapterClick}
-            >
-              <BsChevronRight size="1.25rem" />
-            </button>
+            />
           ) : null}
         </div>
       </PageHeader>

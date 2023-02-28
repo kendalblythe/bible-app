@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
 import { BibleSummary, BookSummary, ChapterSummary } from '../api/types';
-import { PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
+import { ButtonGroup, PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
 import { useScrollTop, useTranslation } from '../hooks';
 
 export interface ChaptersViewProps {
@@ -44,19 +44,23 @@ export const ChaptersView = ({
   return (
     <>
       <PageHeader>
-        <div className="flex-1">
+        <div className="flex-1 gap-2">
           <PageHeading onGoBack={onGoBack}>{t('ChaptersView.page.title')}</PageHeading>
         </div>
         {bible && book ? (
-          <div className="flex-none gap-2 ml-4">
-            <div className="btn-group">
-              <button className="btn btn-sm text-base" onClick={onGoBibles}>
-                {bible.abbreviationLocal}
-              </button>{' '}
-              <button className="btn btn-sm text-base ml-px" onClick={onGoBooks}>
-                {book.name}
-              </button>
-            </div>
+          <div className="flex-none gap-2">
+            <ButtonGroup
+              buttons={[
+                {
+                  text: bible.abbreviationLocal,
+                  onClick: onGoBibles,
+                },
+                {
+                  text: book.name,
+                  onClick: onGoBooks,
+                },
+              ]}
+            />
           </div>
         ) : null}
       </PageHeader>
