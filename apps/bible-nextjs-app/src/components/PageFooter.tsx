@@ -6,7 +6,7 @@ export interface PageFooterProps {
 
 export const PageFooter = ({ children }: PageFooterProps) => (
   <footer className="mb-4">
-    <div className="divider h-px mx-2 mt-4 mb-6"></div>
+    <div className="divider h-px mx-2 mt-2 mb-4"></div>
     {children}
   </footer>
 );
