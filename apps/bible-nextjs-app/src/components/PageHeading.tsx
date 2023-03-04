@@ -16,7 +16,7 @@ export const PageHeading = ({ children, onGoBack }: PageHeadingProps) => {
     <>
       {onGoBack ? (
         <IconButton
-          icon={<RiArrowGoBackLine size="1.25rem" />}
+          icon={<RiArrowGoBackLine size={20} />}
           title={t('PageHeading.back.button.label')}
           onClick={onGoBack}
         />

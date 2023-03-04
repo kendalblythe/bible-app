@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
-import { useSwipeable } from 'react-swipeable';
 
 import { useRouter } from 'next/router';
 
@@ -29,10 +28,6 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
   const { t } = useTranslation();
   const router = useRouter();
   const { isPageLoading } = usePageLoading();
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => chapter.previous && onPreviousChapterClick(),
-    onSwipedRight: () => chapter.next && onNextChapterClick(),
-  });
 
   const [, setLocalStorageState] = useLocalStorageState<LocalStorageState | undefined>(
     localStorageKey,
@@ -65,7 +60,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
         <div className="flex-1 gap-2">
           {chapter.previous ? (
             <IconButton
-              icon={<BsChevronLeft size="1.25rem" />}
+              icon={<BsChevronLeft size={20} />}
               title={t('ChapterView.previous.button.label')}
               onClick={onPreviousChapterClick}
             />
@@ -96,7 +91,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
         <div className="flex-none gap-2">
           {chapter.next ? (
             <IconButton
-              icon={<BsChevronRight size="1.25rem" />}
+              icon={<BsChevronRight size={20} />}
               title={t('ChapterView.next.button.label')}
               onClick={onNextChapterClick}
             />
@@ -104,7 +99,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
         </div>
       </PageHeader>
 
-      <PageMain {...swipeHandlers} dir={bible.language.scriptDirection}>
+      <PageMain dir={bible.language.scriptDirection}>
         <MarkdownText className="scripture-styles" text={chapter.content} />
       </PageMain>
 
