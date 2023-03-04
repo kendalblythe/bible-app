@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import { useSwipeable } from 'react-swipeable';
 
 import { useRouter } from 'next/router';
 
@@ -28,12 +29,15 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
   const { t } = useTranslation();
   const router = useRouter();
   const { isPageLoading } = usePageLoading();
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => chapter.previous && onPreviousChapterClick(),
+    onSwipedRight: () => chapter.next && onNextChapterClick(),
+  });
+
   const [, setLocalStorageState] = useLocalStorageState<LocalStorageState | undefined>(
     localStorageKey,
     undefined
   );
-  const chapterName =
-    chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number;
 
   useEffect(
     () =>
@@ -57,7 +61,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
 
   return (
     <>
-      <PageHeader>
+      <PageHeader {...swipeHandlers}>
         <div className="flex-1 gap-2">
           {chapter.previous ? (
             <IconButton
@@ -79,7 +83,10 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
                 onClick: () => onViewTypeChange('books'),
               },
               {
-                text: chapterName,
+                text:
+                  chapter.number === 'intro'
+                    ? t('ChaptersView.intro.button.label')
+                    : chapter.number,
                 tooltipKey: 'PageHeading.chapter.button.label',
                 onClick: () => onViewTypeChange('chapters'),
               },
@@ -97,11 +104,11 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
         </div>
       </PageHeader>
 
-      <PageMain dir={bible.language.scriptDirection}>
+      <PageMain {...swipeHandlers} dir={bible.language.scriptDirection}>
         <MarkdownText className="scripture-styles" text={chapter.content} />
       </PageMain>
 
-      <PageFooter>
+      <PageFooter {...swipeHandlers}>
         <FooterSection title={t('PageFooter.copyright.section.title')} text={chapter.copyright} />
       </PageFooter>
 
