@@ -32,6 +32,8 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
     localStorageKey,
     undefined
   );
+  const chapterName =
+    chapter.number === 'intro' ? t('ChaptersView.intro.button.label') : chapter.number;
 
   useEffect(
     () =>
@@ -68,17 +70,17 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
             buttons={[
               {
                 text: bible.abbreviationLocal,
+                tooltipKey: 'PageHeading.version.button.label',
                 onClick: () => onViewTypeChange('bibles'),
               },
               {
                 text: book.name,
+                tooltipKey: 'PageHeading.book.button.label',
                 onClick: () => onViewTypeChange('books'),
               },
               {
-                text:
-                  chapter.number === 'intro'
-                    ? t('ChaptersView.intro.button.label')
-                    : chapter.number,
+                text: chapterName,
+                tooltipKey: 'PageHeading.chapter.button.label',
                 onClick: () => onViewTypeChange('chapters'),
               },
             ]}

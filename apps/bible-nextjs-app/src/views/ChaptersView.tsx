@@ -53,10 +53,12 @@ export const ChaptersView = ({
               buttons={[
                 {
                   text: bible.abbreviationLocal,
+                  tooltipKey: 'PageHeading.version.button.label',
                   onClick: onGoBibles,
                 },
                 {
                   text: book.name,
+                  tooltipKey: 'PageHeading.book.button.label',
                   onClick: onGoBooks,
                 },
               ]}

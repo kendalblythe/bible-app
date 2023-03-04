@@ -63,6 +63,7 @@ export const BooksView = ({
               buttons={[
                 {
                   text: bible.abbreviationLocal,
+                  tooltipKey: 'PageHeading.version.button.label',
                   onClick: onGoBibles,
                 },
               ]}
