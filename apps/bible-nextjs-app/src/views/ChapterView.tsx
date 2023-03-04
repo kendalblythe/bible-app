@@ -61,7 +61,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
 
   return (
     <>
-      <PageHeader {...swipeHandlers}>
+      <PageHeader>
         <div className="flex-1 gap-2">
           {chapter.previous ? (
             <IconButton
@@ -108,7 +108,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
         <MarkdownText className="scripture-styles" text={chapter.content} />
       </PageMain>
 
-      <PageFooter {...swipeHandlers}>
+      <PageFooter>
         <FooterSection title={t('PageFooter.copyright.section.title')} text={chapter.copyright} />
       </PageFooter>
 
