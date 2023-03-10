@@ -9,5 +9,5 @@ module.exports = {
       lg: '736px',
     },
   },
-  plugins: [require('daisyui'), require('tailwindcss-flip')],
+  plugins: [require('daisyui')],
 };

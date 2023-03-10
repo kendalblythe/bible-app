@@ -155,6 +155,7 @@ export const getServerSideProps: GetServerSideProps<ChapterPageProps, QParams> =
         };
       }
     } catch (err: unknown) {
+      console.error(err);
       return {
         props: {},
       };
