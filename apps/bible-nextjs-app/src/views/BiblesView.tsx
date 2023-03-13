@@ -45,7 +45,7 @@ export const BiblesView = ({ currentBible, onBibleSelected, onGoBack }: BiblesVi
           <PageHeading onGoBack={onGoBack}>{t('BiblesView.page.title')}</PageHeading>
         </div>
         {languages ? (
-          <div className="flex-none gap-2">
+          <div className="gap-2">
             <Label htmlFor="languageSelect" className="hidden sm:flex text-base">
               {t('BiblesView.language.select.label')}
             </Label>

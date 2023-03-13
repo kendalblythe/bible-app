@@ -88,7 +88,7 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
             ]}
           />
         </div>
-        <div className="flex-none gap-2">
+        <div className="gap-2">
           {chapter.next ? (
             <IconButton
               icon={<BsChevronRight size={20} />}

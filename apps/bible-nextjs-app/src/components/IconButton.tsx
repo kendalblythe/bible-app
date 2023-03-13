@@ -6,7 +6,7 @@ export interface IconButtonProps {
 
 export const IconButton = ({ icon, title, onClick }: IconButtonProps) => {
   return (
-    <button className="btn-ghost hover:bg-gray-300 p-1" title={title} onClick={onClick}>
+    <button className="icon-button" title={title} onClick={onClick}>
       {icon}
     </button>
   );

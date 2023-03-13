@@ -51,7 +51,7 @@ export const ChaptersView = ({
           <PageHeading onGoBack={onGoBack}>{t('ChaptersView.page.title')}</PageHeading>
         </div>
         {bible && book ? (
-          <div className="flex-none gap-2">
+          <div className="gap-2">
             <ButtonGroup
               buttons={[
                 {
@@ -71,20 +71,16 @@ export const ChaptersView = ({
       </PageHeader>
 
       {bible && book ? (
-        <>
-          <PageMain>
-            <div>
-              {book.chapters.map((chapter) => (
-                <ChapterTileButton
-                  key={chapter.id}
-                  chapter={chapter}
-                  isSelected={chapter.id === currentChapterId}
-                  onClick={() => onChapterSelected(chapter, book, bible)}
-                />
-              ))}
-            </div>
-          </PageMain>
-        </>
+        <PageMain>
+          {book.chapters.map((chapter) => (
+            <ChapterTileButton
+              key={chapter.id}
+              chapter={chapter}
+              isSelected={chapter.id === currentChapterId}
+              onClick={() => onChapterSelected(chapter, book, bible)}
+            />
+          ))}
+        </PageMain>
       ) : null}
 
       {isLoading ? <PageSpinner /> : null}

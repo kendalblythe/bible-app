@@ -2,12 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    @apply text-black dark:text-white bg-white dark:bg-black;
+  }
+
+  body {
+    @apply mx-auto max-w-[67ch] font-sans text-lg;
+  }
+}
+
 @layer components {
   .tile-button {
-    @apply px-4 py-2 bg-white;
-    @apply border border-gray-200 rounded-lg;
+    @apply px-4 py-2 border border-gray-200 rounded-lg;
     @apply hover:shadow-md hover:border-gray-300;
     @apply outline-none focus:border-gray-600 focus:shadow-md focus:border-dashed;
+  }
+
+  .icon-button {
+    @apply p-1 border border-transparent rounded-md;
+    @apply hover:shadow-md hover:border-gray-300;
+    @apply outline-none focus:border-gray-600 focus:shadow-md focus:border-dashed;
+  }
+
+  .button-group-button {
+    @apply btn btn-sm text-black text-base font-medium;
+    @apply inline-block min-w-[3rem] max-w-[10rem] truncate normal-case px-2;
+    @apply bg-gray-200 border-gray-200 hover:bg-gray-300 hover:border-gray-300;
+    @apply !outline-none focus:bg-gray-300 focus:border-gray-600 focus:border-dashed;
   }
 }
 
@@ -19,16 +41,8 @@
   .tile-button-text {
     @apply text-base;
   }
-}
 
-:root {
-  @apply text-black dark:text-white bg-white dark:bg-black;
-}
-
-:root body {
-  @apply mx-auto max-w-[67ch] font-sans text-lg;
-}
-
-:root .scripture-styles .wj {
-  @apply text-red-700 dark:text-red-300;
+  :root .scripture-styles .wj {
+    @apply text-red-700 dark:text-red-300;
+  }
 }

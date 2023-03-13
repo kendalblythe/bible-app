@@ -6,7 +6,7 @@ export interface PageMainProps {
 }
 
 export const PageMain = ({ dir, children }: PageMainProps) => (
-  <main className="px-6 py-5" dir={dir}>
+  <main className="p-5" dir={dir}>
     {children}
   </main>
 );

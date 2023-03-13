@@ -5,8 +5,8 @@ export interface PageFooterProps {
 }
 
 export const PageFooter = ({ children }: PageFooterProps) => (
-  <footer className="mb-4">
-    <div className="divider h-px mx-2 mt-2 mb-4"></div>
+  <footer className="flex flex-col gap-5 mb-5">
+    <div className="divider h-px m-0"></div>
     {children}
   </footer>
 );

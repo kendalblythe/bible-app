@@ -58,7 +58,7 @@ export const BooksView = ({
           <PageHeading onGoBack={onGoBack}>{t('BooksView.page.title')}</PageHeading>
         </div>
         {bible ? (
-          <div className="flex-none gap-2">
+          <div className="gap-2">
             <ButtonGroup
               buttons={[
                 {

@@ -6,9 +6,9 @@ export interface FooterSectionProps {
 }
 
 export const FooterSection = ({ title, text }: FooterSectionProps) => (
-  <div className="mx-auto text-sm text-center px-8 pb-4">
-    <div className="font-bold my-2">{title}</div>
-    <div>
+  <div className="mx-auto text-sm text-center px-8">
+    <div className="font-bold">{title}</div>
+    <div className="mt-2">
       <MarkdownText text={text} />
     </div>
   </div>
