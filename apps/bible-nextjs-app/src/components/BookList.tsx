@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { ButtonListItem } from '.';
+import { BookTileButton } from '.';
 import { BookSummary } from '../api/types';
 
 export interface BookListProps {
@@ -18,21 +18,15 @@ export const BookList = ({
   currentBookId,
   onBookSelected,
 }: BookListProps) => (
-  <ul className={clsx('flex flex-col gap-1', className)}>
-    <li>
-      <h1 className="text-base leading-10 font-bold">{title}</h1>
-    </li>
+  <div className={clsx('flex flex-col gap-2', className)}>
+    <h1 className="text-base leading-10 font-bold">{title}</h1>
     {books.map((book) => (
-      <ButtonListItem
+      <BookTileButton
         key={book.id}
-        className={clsx(
-          'btn-md text-base border w-full',
-          book.id === currentBookId ? 'border-black' : 'border-transparent'
-        )}
+        book={book}
+        isSelected={book.id === currentBookId}
         onClick={() => onBookSelected(book)}
-      >
-        <span className="truncate max-w-full inline-block">{book.name}</span>
-      </ButtonListItem>
+      />
     ))}
-  </ul>
+  </div>
 );

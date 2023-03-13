@@ -75,7 +75,13 @@ export const BooksView = ({
       {bible && oldTestamentBooks && newTestamentBooks && apocryphaBooks ? (
         <>
           <PageMain dir={bible.language.scriptDirection}>
-            <div className={clsx('grid grid-cols-1 gap-4', bookGroupCount > 1 && 'sm:grid-cols-2')}>
+            <div
+              className={clsx(
+                'grid grid-cols-1 gap-4',
+                bookGroupCount === 2 && 'md:grid-cols-2',
+                bookGroupCount === 3 && 'md:grid-cols-3'
+              )}
+            >
               {oldTestamentBooks.length ? (
                 <BookList
                   title={t('BooksView.oldTestament.section.title')}
@@ -84,25 +90,23 @@ export const BooksView = ({
                   onBookSelected={onBookSelected}
                 />
               ) : null}
-              <div>
-                {apocryphaBooks.length ? (
-                  <BookList
-                    className="mb-4"
-                    title={t('BooksView.apocrypha.section.title')}
-                    books={apocryphaBooks}
-                    currentBookId={currentBookId}
-                    onBookSelected={onBookSelected}
-                  />
-                ) : null}
-                {newTestamentBooks.length ? (
-                  <BookList
-                    title={t('BooksView.newTestament.section.title')}
-                    books={newTestamentBooks}
-                    currentBookId={currentBookId}
-                    onBookSelected={onBookSelected}
-                  />
-                ) : null}
-              </div>
+              {apocryphaBooks.length ? (
+                <BookList
+                  className="mb-4"
+                  title={t('BooksView.apocrypha.section.title')}
+                  books={apocryphaBooks}
+                  currentBookId={currentBookId}
+                  onBookSelected={onBookSelected}
+                />
+              ) : null}
+              {newTestamentBooks.length ? (
+                <BookList
+                  title={t('BooksView.newTestament.section.title')}
+                  books={newTestamentBooks}
+                  currentBookId={currentBookId}
+                  onBookSelected={onBookSelected}
+                />
+              ) : null}
             </div>
           </PageMain>
 

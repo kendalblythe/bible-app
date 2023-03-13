@@ -2,12 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .tile-button {
+    @apply px-4 py-2 bg-white;
+    @apply border border-gray-200 rounded-lg;
+    @apply hover:shadow-md hover:border-gray-300;
+    @apply outline-none focus:border-gray-600 focus:shadow-md focus:border-dashed;
+  }
+}
+
+@layer utilities {
+  .tile-button-title {
+    @apply text-lg font-bold;
+  }
+
+  .tile-button-text {
+    @apply text-base;
+  }
+}
+
 :root {
   @apply text-black dark:text-white bg-white dark:bg-black;
 }
 
 :root body {
-  @apply mx-auto max-w-[66ch] font-sans text-lg;
+  @apply mx-auto max-w-[67ch] font-sans text-lg;
 }
 
 :root .scripture-styles .wj {

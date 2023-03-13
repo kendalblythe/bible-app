@@ -1,11 +1,14 @@
-import { BsInfoCircle } from 'react-icons/bs';
-
-import clsx from 'clsx';
-
 import { ErrorView } from '.';
 import { useBibleQuery, useBookQuery } from '../api/queries';
 import { BibleSummary, BookSummary, ChapterSummary } from '../api/types';
-import { ButtonGroup, PageHeader, PageHeading, PageMain, PageSpinner } from '../components';
+import {
+  ButtonGroup,
+  ChapterTileButton,
+  PageHeader,
+  PageHeading,
+  PageMain,
+  PageSpinner,
+} from '../components';
 import { useScrollTop, useTranslation } from '../hooks';
 
 export interface ChaptersViewProps {
@@ -71,26 +74,14 @@ export const ChaptersView = ({
         <>
           <PageMain>
             <div>
-              {book.chapters.map((chapter) =>
-                chapter.number === 'intro' ? (
-                  <button
-                    key={chapter.id}
-                    className={getButtonClassName(chapter, currentChapterId)}
-                    title={t('ChaptersView.intro.button.label')}
-                    onClick={() => onChapterSelected(chapter, book, bible)}
-                  >
-                    <BsInfoCircle className="inline-block mx-auto mb-0.5" />
-                  </button>
-                ) : (
-                  <button
-                    key={chapter.id}
-                    className={getButtonClassName(chapter, currentChapterId)}
-                    onClick={() => onChapterSelected(chapter, book, bible)}
-                  >
-                    {chapter.number}
-                  </button>
-                )
-              )}
+              {book.chapters.map((chapter) => (
+                <ChapterTileButton
+                  key={chapter.id}
+                  chapter={chapter}
+                  isSelected={chapter.id === currentChapterId}
+                  onClick={() => onChapterSelected(chapter, book, bible)}
+                />
+              ))}
             </div>
           </PageMain>
         </>
@@ -100,12 +91,3 @@ export const ChaptersView = ({
     </>
   );
 };
-
-const getButtonClassName = (
-  chapter: ChapterSummary,
-  currentChapterId: string | undefined
-): string =>
-  clsx(
-    'btn-ghost btn-md text-base w-20 mr-1 mb-1 border',
-    chapter.id === currentChapterId ? 'border-black' : 'border-transparent'
-  );

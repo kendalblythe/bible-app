@@ -1,14 +1,11 @@
 import { useState } from 'react';
 
-import clsx from 'clsx';
-
 import { ErrorView } from '.';
 import { useBiblesQuery } from '../api/queries';
 import { BibleSummary } from '../api/types';
 import {
-  ButtonListItem,
+  BibleTileButton,
   Label,
-  List,
   PageHeader,
   PageHeading,
   PageMain,
@@ -72,23 +69,18 @@ export const BiblesView = ({ currentBible, onBibleSelected, onGoBack }: BiblesVi
 
       {bibles ? (
         <PageMain>
-          <List className="gap-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {bibles
               .filter((bible) => bible.language.id === languageId)
               .map((bible) => (
-                <ButtonListItem
+                <BibleTileButton
                   key={bible.id}
-                  className={clsx(
-                    'block border',
-                    bible.id === currentBible?.id ? 'border-black' : 'border-transparent'
-                  )}
+                  bible={bible}
+                  isSelected={bible.id === currentBible?.id}
                   onClick={() => onBibleSelected(bible)}
-                >
-                  <div className="font-medium">{bible.abbreviationLocal}</div>
-                  <div className="block label label-text text-base p-0">{bible.nameLocal}</div>
-                </ButtonListItem>
+                />
               ))}
-          </List>
+          </div>
         </PageMain>
       ) : null}
 
