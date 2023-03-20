@@ -18,7 +18,7 @@ export const BookList = ({
   currentBookId,
   onBookSelected,
 }: BookListProps) => (
-  <div className={clsx('flex flex-col gap-2', className)}>
+  <div className={clsx('flex flex-col gap-3', className)}>
     <h1 className="text-base leading-10 font-bold">{title}</h1>
     {books.map((book) => (
       <BookTileButton

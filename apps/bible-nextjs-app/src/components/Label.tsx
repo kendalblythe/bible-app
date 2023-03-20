@@ -1,7 +1,5 @@
 import { ReactNode } from 'react';
 
-import { clsx } from 'clsx';
-
 export interface LabelProps {
   children: ReactNode;
   htmlFor?: string;
@@ -9,7 +7,7 @@ export interface LabelProps {
 }
 
 export const Label = ({ children, htmlFor, className }: LabelProps) => (
-  <label className={clsx('label label-text', className)} htmlFor={htmlFor}>
+  <label className={className} htmlFor={htmlFor}>
     {children}
   </label>
 );

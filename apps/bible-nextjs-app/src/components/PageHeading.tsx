@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { RiArrowGoBackLine } from 'react-icons/ri';
+import { BiArrowBack } from 'react-icons/bi';
 
 import { useTranslation } from '../hooks';
 import { IconButton } from './IconButton';
@@ -16,7 +16,7 @@ export const PageHeading = ({ children, onGoBack }: PageHeadingProps) => {
     <>
       {onGoBack ? (
         <IconButton
-          icon={<RiArrowGoBackLine size={20} />}
+          icon={<BiArrowBack size={20} />}
           title={t('PageHeading.back.button.label')}
           onClick={onGoBack}
         />

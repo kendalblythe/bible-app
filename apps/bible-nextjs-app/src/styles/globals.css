@@ -4,32 +4,61 @@
 
 @layer base {
   :root {
-    @apply text-black dark:text-white bg-white dark:bg-black;
+    @apply text-black dark:text-white;
+    @apply bg-white dark:bg-black;
   }
 
   body {
     @apply mx-auto max-w-[67ch] font-sans text-lg;
   }
+
+  a {
+    @apply focus:outline-dotted focus:outline-1 focus:outline-offset-2;
+    @apply focus:outline-black dark:focus:outline-white;
+  }
 }
 
 @layer components {
   .tile-button {
-    @apply px-4 py-2 border border-gray-200 rounded-lg;
-    @apply hover:shadow-md hover:border-gray-300;
-    @apply outline-none focus:border-gray-600 focus:shadow-md focus:border-dashed;
+    @apply px-4 py-2 border rounded-md outline-none hover:shadow-md focus:shadow-sm focus:border-dotted;
+    @apply text-black dark:text-white;
+    @apply bg-transparent;
+    @apply border-gray-200 dark:border-gray-800;
+    @apply hover:border-gray-300 dark:hover:border-gray-700;
+    @apply hover:shadow-gray-500  dark:hover:shadow-gray-500;
+    @apply focus:bg-gray-200 dark:focus:bg-gray-800;
+    @apply focus:border-black dark:focus:border-white;
   }
 
   .icon-button {
-    @apply p-1 border border-transparent rounded-md;
-    @apply hover:shadow-md hover:border-gray-300;
-    @apply outline-none focus:border-gray-600 focus:shadow-md focus:border-dashed;
+    @apply p-1 border rounded-md outline-none focus:border-dotted;
+    @apply bg-transparent;
+    @apply border-transparent;
+    @apply hover:bg-gray-200 dark:hover:bg-gray-800;
+    @apply hover:border-gray-300 dark:hover:border-gray-700;
+    @apply focus:bg-gray-200 dark:focus:bg-gray-800;
+    @apply focus:border-black dark:focus:border-white;
   }
 
   .button-group-button {
-    @apply btn btn-sm text-black text-base font-medium;
+    @apply btn btn-sm text-base font-medium !outline-none focus:border-dotted;
     @apply inline-block min-w-[3rem] max-w-[10rem] truncate normal-case px-2;
-    @apply bg-gray-200 border-gray-200 hover:bg-gray-300 hover:border-gray-300;
-    @apply !outline-none focus:bg-gray-300 focus:border-gray-600 focus:border-dashed;
+    @apply text-black dark:text-white;
+    @apply bg-gray-200 dark:bg-gray-800;
+    @apply border-gray-200 dark:border-gray-800;
+    @apply hover:bg-gray-300 dark:hover:bg-gray-700;
+    @apply hover:border-gray-300 dark:hover:border-gray-700;
+    @apply focus:bg-gray-300 dark:focus:bg-gray-700;
+    @apply focus:border-black dark:focus:border-white;
+  }
+
+  .select {
+    @apply focus:outline-none focus:border-dotted;
+    @apply bg-transparent;
+    @apply border-gray-200 dark:border-gray-800;
+    @apply hover:bg-gray-200 dark:hover:bg-gray-800;
+    @apply focus:bg-gray-200 dark:focus:bg-gray-800;
+    @apply focus:border-black dark:focus:border-white;
   }
 }
 
@@ -40,6 +69,10 @@
 
   .tile-button-text {
     @apply text-base;
+  }
+
+  .divider {
+    @apply bg-gray-200 dark:bg-gray-400;
   }
 
   :root .scripture-styles .wj {
