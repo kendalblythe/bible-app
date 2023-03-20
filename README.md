@@ -12,7 +12,7 @@ containing the following apps and packages for implementing the Bible web applic
 
 ## Read Bible
 
-You can read the Bible here.
+The Bible App is deployed here.
 
 - <a href="https://bible-nextjs-app.vercel.app/">https://bible-nextjs-app.vercel.app/</a>
 
@@ -22,10 +22,13 @@ You can read the Bible here.
 - <a href="https://www.typescriptlang.org/">TypeScript</a>
 - <a href="https://www.javascript.com/">JavaScript</a>
 - <a href="https://nextjs.org/">Next.js</a>
-- <a href="https://vitejs.dev/">Vite</a>
 - <a href="https://vercel.com/">Vercel</a>
-- <a href="https://sass-lang.com/">SASS</a>
-- <a href="https://csstools.github.io/sanitize.css/">sanitize.css</a>
+- <a href="https://tailwindcss.com/">Tailwind CSS</a>
+- <a href="https://daisyui.com/">daisyUI</a>
+- <a href="https://axios-http.com/">Axios</a>
+- <a href="https://react-query-v3.tanstack.com/">React Query</a>
+- <a href="https://formatjs.io/docs/react-intl/">React Intl</a>
+- <a href="https://remarkjs.github.io/react-markdown/">React Markdown</a>
 - <a href="https://code.visualstudio.com/">Visual Studio Code</a>
 - <a href="https://eslint.org/">ESLint</a>
 - <a href="https://prettier.io/">Prettier</a>
