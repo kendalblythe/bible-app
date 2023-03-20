@@ -10,7 +10,7 @@ containing the following apps and packages for implementing the Bible web applic
 
 - bible-nextjs-app
 
-## Read Bible
+## Read the Bible
 
 The Bible App is deployed here.
 
