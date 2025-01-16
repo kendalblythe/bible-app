@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import daisyui from 'daisyui';
+
+const config = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
@@ -9,5 +10,7 @@ module.exports = {
       lg: '736px',
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [daisyui],
 };
+
+export default config;
