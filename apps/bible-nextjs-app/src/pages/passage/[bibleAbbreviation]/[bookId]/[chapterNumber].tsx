@@ -33,13 +33,15 @@ export default function ChapterPage(props: ChapterPageProps) {
   const [updatedBook, setUpdatedBook] = useState<BookSummary | undefined>();
 
   // mutations
-  const chapterExistsMutation = useMutation(async (bible: BibleSummary) => {
-    if (book && chapter) {
-      const chapterId = getChapterId(book.id, chapter.number);
-      const bibleChapter = await getChapter(bible.id, chapterId);
-      return !!bibleChapter;
-    }
-    return false;
+  const chapterExistsMutation = useMutation({
+    mutationFn: async (bible: BibleSummary) => {
+      if (book && chapter) {
+        const chapterId = getChapterId(book.id, chapter.number);
+        const bibleChapter = await getChapter(bible.id, chapterId);
+        return !!bibleChapter;
+      }
+      return false;
+    },
   });
 
   // handle query error
@@ -124,7 +126,7 @@ export default function ChapterPage(props: ChapterPageProps) {
 
       {getView()}
 
-      {isPageLoading || chapterExistsMutation.isLoading ? <PageSpinner /> : null}
+      {isPageLoading || chapterExistsMutation.isPending ? <PageSpinner /> : null}
     </>
   );
 }

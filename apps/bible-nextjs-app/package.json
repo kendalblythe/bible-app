@@ -11,8 +11,8 @@
     "lint": "TIMING=1 eslint \"**/*.ts*\""
   },
   "dependencies": {
-    "@tanstack/react-query": "4.36.1",
-    "@tanstack/react-query-devtools": "4.36.1",
+    "@tanstack/react-query": "5.64.1",
+    "@tanstack/react-query-devtools": "5.64.1",
     "axios": "1.7.9",
     "clsx": "2.1.1",
     "daisyui": "2.48.0",

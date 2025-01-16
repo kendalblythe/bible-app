@@ -14,21 +14,21 @@ const defaultOptions = {
 };
 
 export const useBiblesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
-  useQuery(
-    ['bibles'],
-    async () => {
+  useQuery({
+    queryKey: ['bibles'],
+    queryFn: async () => {
       const bibles = await getBibles();
       const languages = getLanguages(bibles);
       return { bibles, languages };
     },
-    {
-      ...defaultOptions,
-      ...options,
-    }
-  );
+    ...defaultOptions,
+    ...options,
+  });
 
 export const useBibleQuery = (bibleId: string | undefined, options?: QueryOptions<Bible>) =>
-  useQuery(['bibles', bibleId!], () => getBible(bibleId!), {
+  useQuery({
+    queryKey: ['bibles', bibleId!],
+    queryFn: () => getBible(bibleId!),
     ...defaultOptions,
     ...options,
     enabled: !!bibleId,
@@ -38,18 +38,16 @@ export const useBooksQuery = (
   bibleId: string | undefined,
   options?: QueryOptions<BooksAndGroupings>
 ) =>
-  useQuery(
-    ['bibles', bibleId!, 'books'],
-    async () => {
+  useQuery({
+    queryKey: ['bibles', bibleId!, 'books'],
+    queryFn: async () => {
       const books = await getBooks(bibleId!);
       return getBookGroupings(books);
     },
-    {
-      ...defaultOptions,
-      ...options,
-      enabled: !!bibleId,
-    }
-  );
+    ...defaultOptions,
+    ...options,
+    enabled: !!bibleId,
+  });
 
 export const useBookQuery = (
   bibleId: string | undefined,
@@ -57,7 +55,9 @@ export const useBookQuery = (
   params?: BookQueryParams,
   options?: QueryOptions<Book | null>
 ) =>
-  useQuery(['bibles', bibleId!, 'books', bookId!], () => getBook(bibleId!, bookId!, params), {
+  useQuery({
+    queryKey: ['bibles', bibleId!, 'books', bookId!],
+    queryFn: () => getBook(bibleId!, bookId!, params),
     ...defaultOptions,
     ...options,
     enabled: !!bibleId && !!bookId,
