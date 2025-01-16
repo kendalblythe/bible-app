@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { AxiosError, isAxiosError } from 'axios';
 import qs from 'qs';
 

@@ -4,10 +4,10 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "5.46.1",
-    "@typescript-eslint/parser": "5.46.1",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-react": "7.31.11",
-    "eslint-config-turbo": "latest"
+    "@typescript-eslint/eslint-plugin": "8.20.0",
+    "@typescript-eslint/parser": "8.20.0",
+    "eslint-config-prettier": "10.0.1",
+    "eslint-config-turbo": "latest",
+    "eslint-plugin-react": "7.37.4"
   }
 }

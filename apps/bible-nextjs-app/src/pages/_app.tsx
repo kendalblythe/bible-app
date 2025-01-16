@@ -1,9 +1,10 @@
 import { IntlProvider } from 'react-intl';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import en from '../locales/en.json';
 import es from '../locales/es.json';
