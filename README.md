@@ -19,6 +19,7 @@ The Bible App is deployed here.
 ## Technologies
 
 - <a href="https://reactjs.org/">React</a>
+- <a href="https://react.dev/learn/react-compiler">React Compiler</a>
 - <a href="https://www.typescriptlang.org/">TypeScript</a>
 - <a href="https://www.javascript.com/">JavaScript</a>
 - <a href="https://nextjs.org/">Next.js</a>

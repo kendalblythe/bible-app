@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { IntlShape, useIntl } from 'react-intl';
 
 export type MessageFormatPrimitiveValue = string | number | boolean | null | undefined;
@@ -27,10 +26,7 @@ export interface UseTranslationResult {
  */
 export const useTranslation = (): UseTranslationResult => {
   const intl = useIntl();
-  const t = useMemo(
-    () => (id: string, values?: Record<string, MessageFormatPrimitiveValue>) =>
-      intl.formatMessage({ id }, values),
-    [intl]
-  );
+  const t = (id: string, values?: Record<string, MessageFormatPrimitiveValue>) =>
+    intl.formatMessage({ id }, values);
   return { t, intl };
 };
