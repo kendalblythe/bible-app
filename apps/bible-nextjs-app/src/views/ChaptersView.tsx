@@ -20,6 +20,7 @@ export interface ChaptersViewProps {
   onGoBibles: () => void;
   onGoBooks: () => void;
 }
+
 export const ChaptersView = ({
   currentBibleId,
   currentBookId,

@@ -12,6 +12,7 @@ export interface MarkdownTextProps {
   text: string;
   className?: string;
 }
+
 export const MarkdownText = ({ text, className }: MarkdownTextProps) => (
   <ReactMarkdown
     className={clsx(styles.markdownText, className)}
