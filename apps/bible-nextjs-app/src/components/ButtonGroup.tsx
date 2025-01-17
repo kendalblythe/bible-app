@@ -15,12 +15,12 @@ export interface ButtonGroupProps {
 export const ButtonGroup = ({ buttons }: ButtonGroupProps) => {
   const { t } = useTranslation();
   return (
-    <div className="btn-group">
+    <div className="join">
       {buttons.map(({ text, tooltipKey, onClick }, i) => (
         <button
           key={text}
           title={t(tooltipKey, { name: text })}
-          className={clsx('button-group-button', i > 0 && 'ml-px')}
+          className={clsx('button-group-button join-item', i > 0 && '!ml-px')}
           onClick={onClick}
         >
           {text}
