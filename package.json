@@ -1,4 +1,5 @@
 {
+  "name": "bible-app",
   "private": true,
   "workspaces": [
     "apps/*",
