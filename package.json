@@ -23,12 +23,6 @@
   "lint-staged": {
     "apps/**/*.{js,ts,jsx,tsx}": [
       "eslint --fix"
-    ],
-    "packages/bible-*/**/*.{js,ts,jsx,tsx}": [
-      "eslint --fix"
-    ],
-    "*.json": [
-      "prettier --write"
     ]
   },
   "packageManager": "yarn@1.22.22"
