@@ -44,5 +44,8 @@
     "postcss": "8.4.21",
     "tailwindcss": "3.4.17",
     "tsconfig": "*"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
