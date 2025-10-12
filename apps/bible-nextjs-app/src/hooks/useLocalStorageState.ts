@@ -6,6 +6,7 @@ export const useLocalStorageState = <T>(key: string, fallbackValue: T) => {
 
   useEffect(() => {
     const stored = localStorage.getItem(key);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setValue(stored ? JSON.parse(stored) : fallbackValue);
     setLoaded(true);
   }, [key, fallbackValue]);

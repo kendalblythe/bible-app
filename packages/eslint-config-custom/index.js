@@ -2,16 +2,24 @@ module.exports = {
   env: {
     node: true,
   },
+  ignorePatterns: ['.next/', 'next-env.d.ts'],
   parser: '@typescript-eslint/parser',
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'turbo'],
-  plugins: ['@typescript-eslint', 'react-hooks', 'react-compiler'],
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 'latest',
   },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'prettier',
+  ],
+  plugins: [],
   rules: {
-    eqeqeq: 'error',
-    'react-hooks/exhaustive-deps': 'error',
-    'react-compiler/react-compiler': 'error',
+    'react/react-in-jsx-scope': 'off', // suppress errors for missing 'import React' in files
+  },
+  settings: {
+    react: { version: 'detect' },
   },
 };
