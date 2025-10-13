@@ -54,7 +54,6 @@
 
   .select {
     @apply focus:outline-none focus:border-dotted;
-    @apply bg-transparent;
     @apply border-gray-200 dark:border-gray-800;
     @apply hover:bg-gray-200 dark:hover:bg-gray-800;
     @apply focus:bg-gray-200 dark:focus:bg-gray-800;

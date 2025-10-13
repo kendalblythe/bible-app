@@ -54,7 +54,7 @@ export const BooksView = ({
   return (
     <>
       <PageHeader>
-        <div className="flex-1 gap-2">
+        <div className="flex flex-1 gap-2">
           <PageHeading onGoBack={onGoBack}>{t('BooksView.page.title')}</PageHeading>
         </div>
         {bible ? (
