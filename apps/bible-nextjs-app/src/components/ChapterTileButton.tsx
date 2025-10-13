@@ -32,7 +32,7 @@ export const ChapterTileButton = ({
     <button
       ref={ref}
       className={clsx(
-        'tile-button w-24 m-2',
+        'tile-button w-20 m-2',
         'tile-button-text hover:underline focus:underline',
         isSelected && 'tile-button-selected',
         className
