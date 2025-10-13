@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useEffectEvent, useState } from 'react';
 
-export const useLocalStorageState = <T>(key: string, fallbackValue: T) => {
+export const useLocalStorageState = <T>(key: string, initialValue?: T) => {
   const [isLoaded, setLoaded] = useState(false);
-  const [value, setValue] = useState(fallbackValue);
+  const [value, setValue] = useState(initialValue);
 
-  useEffect(() => {
-    const stored = localStorage.getItem(key);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setValue(stored ? JSON.parse(stored) : fallbackValue);
+  const onLoaded = useEffectEvent((storeValue: string | null) => {
+    setValue(storeValue ? JSON.parse(storeValue) : initialValue);
     setLoaded(true);
-  }, [key, fallbackValue]);
+  });
+
+  useEffect(() => onLoaded(localStorage.getItem(key)), [key]);
 
   const setValueAndUpdateLocalStorage = (value: T) => {
     setValue(value);
@@ -22,3 +22,5 @@ export const useLocalStorageState = <T>(key: string, fallbackValue: T) => {
 
   return [value, setValueAndUpdateLocalStorage, isLoaded] as const;
 };
+
+export default useLocalStorageState;
