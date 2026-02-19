@@ -3,19 +3,20 @@ import { AxiosError } from 'axios';
 
 import { getBookGroupings, getLanguages } from '../utils/bible';
 import { getBible, getBibles, getBook, getBooks } from './apis';
+import { queryKeys } from './queryKeys';
 import { Bible, BiblesAndLanguages, Book, BookQueryParams, BooksAndGroupings } from './types';
 
 type QueryOptions<T> = Omit<UseQueryOptions<T, AxiosError, T, string[]>, 'queryFn' | 'queryKey'>;
 
 const defaultOptions = {
-  cacheTime: Infinity,
+  gcTime: Infinity,
   staleTime: Infinity,
   retry: false,
-};
+} as const satisfies QueryOptions<unknown>;
 
 export const useBiblesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
   useQuery({
-    queryKey: ['bibles'],
+    queryKey: queryKeys.bibles(),
     queryFn: async () => {
       const bibles = await getBibles();
       const languages = getLanguages(bibles);
@@ -27,7 +28,7 @@ export const useBiblesQuery = (options?: QueryOptions<BiblesAndLanguages>) =>
 
 export const useBibleQuery = (bibleId: string | undefined, options?: QueryOptions<Bible>) =>
   useQuery({
-    queryKey: ['bibles', bibleId!],
+    queryKey: queryKeys.bible(bibleId!),
     queryFn: () => getBible(bibleId!),
     ...defaultOptions,
     ...options,
@@ -39,7 +40,7 @@ export const useBooksQuery = (
   options?: QueryOptions<BooksAndGroupings>
 ) =>
   useQuery({
-    queryKey: ['bibles', bibleId!, 'books'],
+    queryKey: queryKeys.books(bibleId!),
     queryFn: async () => {
       const books = await getBooks(bibleId!);
       return getBookGroupings(books);
@@ -56,7 +57,7 @@ export const useBookQuery = (
   options?: QueryOptions<Book | null>
 ) =>
   useQuery({
-    queryKey: ['bibles', bibleId!, 'books', bookId!],
+    queryKey: queryKeys.book(bibleId!, bookId!),
     queryFn: () => getBook(bibleId!, bookId!, params),
     ...defaultOptions,
     ...options,
