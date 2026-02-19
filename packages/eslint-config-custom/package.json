@@ -4,9 +4,13 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "8.46.0",
-    "@typescript-eslint/parser": "8.46.0",
+    "@typescript-eslint/eslint-plugin": "8.56.0",
+    "@typescript-eslint/parser": "8.56.0",
+    "eslint": "9.39.2",
+    "eslint-config-next": "15.5.4",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-react": "7.37.5"
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.1",
+    "typescript": "5.9.3"
   }
 }
