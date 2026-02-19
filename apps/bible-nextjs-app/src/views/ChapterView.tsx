@@ -47,12 +47,12 @@ export const ChapterView = ({ bible, book, chapter, onViewTypeChange }: ChapterV
   // handle previous chapter click
   const onPreviousChapterClick = () =>
     router.push(
-      `/passage/${bible.abbreviation}/${chapter.previous.bookId}/${chapter.previous.number}`
+      `/passage/${bible.abbreviation}/${chapter.previous?.bookId}/${chapter.previous?.number}`
     );
 
   // handle next chapter click
   const onNextChapterClick = () =>
-    router.push(`/passage/${bible.abbreviation}/${chapter.next.bookId}/${chapter.next.number}`);
+    router.push(`/passage/${bible.abbreviation}/${chapter.next?.bookId}/${chapter.next?.number}`);
 
   return (
     <>

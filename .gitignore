@@ -5,3 +5,4 @@ dist
 .next
 .turbo
 *.log
+.yarn/install-state.gz
