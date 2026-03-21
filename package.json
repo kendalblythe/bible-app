@@ -20,9 +20,6 @@
     "turbo": "latest",
     "typescript": "5.9.3"
   },
-  "resolutions": {
-    "tar": "7.5.10"
-  },
   "lint-staged": {
     "apps/**/*.{js,ts,jsx,tsx}": [
       "eslint --fix"
