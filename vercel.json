@@ -1,0 +1,3 @@
+{
+  "installCommand": "corepack yarn install --immutable"
+}
