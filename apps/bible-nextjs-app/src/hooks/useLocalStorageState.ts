@@ -9,6 +9,8 @@ export const useLocalStorageState = <T>(key: string, initialValue?: T) => {
     setLoaded(true);
   });
 
+  // Hydrate after mount to avoid reading browser storage during server rendering.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => onLoaded(localStorage.getItem(key)), [key]);
 
   const setValueAndUpdateLocalStorage = (value: T) => {
