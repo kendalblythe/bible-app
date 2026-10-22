@@ -21,7 +21,7 @@
     "typescript": "5.9.3"
   },
   "resolutions": {
-    "postcss": "8.5.16"
+    "postcss": "8.5.23"
   },
   "lint-staged": {
     "apps/**/*.{js,ts,jsx,tsx}": [
