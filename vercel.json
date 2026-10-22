@@ -1,3 +1,4 @@
 {
-  "installCommand": "corepack yarn install --immutable"
+  "installCommand": "corepack yarn install --immutable",
+  "buildCommand": "corepack yarn workspace bible-nextjs-app build"
 }
