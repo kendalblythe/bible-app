@@ -1,25 +1,38 @@
-module.exports = {
-  env: {
-    node: true,
+import eslintReact from '@eslint-react/eslint-plugin';
+import eslintJs from '@eslint/js';
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
+import prettier from 'eslint-config-prettier';
+import importX from 'eslint-plugin-import-x';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
+
+export default [
+  eslintJs.configs.recommended,
+  ...typescript.configs['flat/recommended'],
+  eslintReact.configs['recommended-typescript'],
+  reactHooks.configs.flat.recommended,
+  eslintReact.configs['disable-conflict-eslint-plugin-react-hooks'],
+  {
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+    plugins: {
+      'import-x': importX,
+    },
+    rules: {
+      'import-x/no-anonymous-default-export': 'warn',
+    },
   },
-  ignorePatterns: ['.next/', 'next-env.d.ts'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 'latest',
+  {
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true },
+      },
+      globals: globals.node,
+    },
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'prettier',
-  ],
-  plugins: [],
-  rules: {
-    'react/react-in-jsx-scope': 'off', // suppress errors for missing 'import React' in files
-  },
-  settings: {
-    react: { version: 'detect' },
-  },
-};
+  prettier,
+];

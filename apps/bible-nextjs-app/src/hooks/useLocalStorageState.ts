@@ -1,26 +1,30 @@
-import { useEffect, useEffectEvent, useState } from 'react';
+import { useCallback, useEffect, useEffectEvent, useState } from 'react';
 
 export const useLocalStorageState = <T>(key: string, initialValue?: T) => {
-  const [isLoaded, setLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [value, setValue] = useState(initialValue);
 
   const onLoaded = useEffectEvent((storeValue: string | null) => {
+    // Hydrate after mount because localStorage is only available in the browser.
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- required for browser-only storage hydration
     setValue(storeValue ? JSON.parse(storeValue) : initialValue);
-    setLoaded(true);
+    // eslint-disable-next-line @eslint-react/set-state-in-effect -- marks browser-only storage hydration complete
+    setIsLoaded(true);
   });
 
-  // Hydrate after mount to avoid reading browser storage during server rendering.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => onLoaded(localStorage.getItem(key)), [key]);
 
-  const setValueAndUpdateLocalStorage = (value: T) => {
-    setValue(value);
-    if (value === undefined || value === null) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-  };
+  const setValueAndUpdateLocalStorage = useCallback(
+    (value: T) => {
+      setValue(value);
+      if (value === undefined || value === null) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+    },
+    [key]
+  );
 
   return [value, setValueAndUpdateLocalStorage, isLoaded] as const;
 };

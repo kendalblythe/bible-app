@@ -28,6 +28,12 @@ jobs:
       - name: Install dependencies
         run: corepack yarn install --immutable
 
+      - name: Lint application
+        run: corepack yarn lint
+
+      - name: Check formatting
+        run: corepack yarn format:check
+
       - name: Build application
         run: corepack yarn workspace bible-nextjs-app build
         env:

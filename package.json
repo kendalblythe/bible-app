@@ -8,17 +8,18 @@
     "build": "turbo run build",
     "dev": "dotenv -- turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{js,ts,tsx,json,md}\""
+    "format": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,json,md,yml,yaml,css}\"",
+    "format:check": "prettier --check \"**/*.{js,mjs,cjs,ts,tsx,json,md,yml,yaml,css}\""
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "5.2.2",
+    "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "dotenv-cli": "7.4.4",
-    "eslint": "9.39.5",
+    "eslint": "10.13.0",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
     "prettier": "3.9.10",
     "turbo": "2.11.10",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "resolutions": {
     "postcss": "8.5.31"

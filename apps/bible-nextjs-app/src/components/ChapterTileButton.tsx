@@ -23,9 +23,10 @@ export const ChapterTileButton = ({
   const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (isSelected) {
-      setTimeout(() => ref.current?.focus(), 0);
-    }
+    if (!isSelected) return;
+
+    const timeoutId = setTimeout(() => ref.current?.focus(), 0);
+    return () => clearTimeout(timeoutId);
   }, [chapter, isSelected]);
 
   return (
