@@ -14,11 +14,12 @@ export interface MarkdownTextProps {
 }
 
 export const MarkdownText = ({ text, className }: MarkdownTextProps) => (
-  <ReactMarkdown
-    className={clsx(styles.markdownText, className)}
-    remarkPlugins={[remarkGfm, remarkBreaks]}
-    rehypePlugins={[rehypeRaw, [rehypeExternalLinks, { target: '_blank' }]]}
-  >
-    {text.replaceAll('¶ ', '').trim()}
-  </ReactMarkdown>
+  <div className={clsx(styles.markdownText, className)}>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm, remarkBreaks]}
+      rehypePlugins={[rehypeRaw, [rehypeExternalLinks, { target: '_blank' }]]}
+    >
+      {text.replaceAll('¶ ', '').trim()}
+    </ReactMarkdown>
+  </div>
 );
