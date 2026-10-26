@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "daisyui";
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 32rem;
+  --breakpoint-md: 39rem;
+  --breakpoint-lg: 46rem;
+}
 
 @layer base {
   :root {
@@ -20,7 +27,7 @@
 
 @layer components {
   .tile-button {
-    @apply px-4 py-2 border rounded-md outline-none hover:shadow-md focus:shadow-sm focus:border-dotted;
+    @apply px-4 py-2 border rounded-md outline-none hover:shadow-md focus:shadow-xs focus:border-dotted;
     @apply text-black dark:text-white;
     @apply bg-transparent;
     @apply border-gray-200 dark:border-gray-800;
@@ -41,7 +48,7 @@
   }
 
   .button-group-button {
-    @apply btn btn-sm text-base font-medium !outline-none focus:border-dotted;
+    @apply btn btn-sm text-base font-medium outline-none! focus:border-dotted;
     @apply inline-block min-w-[3rem] max-w-[10rem] truncate normal-case px-2;
     @apply text-black dark:text-white;
     @apply bg-gray-200 dark:bg-gray-800;

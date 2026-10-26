@@ -15,7 +15,7 @@
     "@tanstack/react-query-devtools": "5.104.5",
     "axios": "1.20.0",
     "clsx": "2.1.1",
-    "daisyui": "5.2.3",
+    "daisyui": "5.7.50",
     "next": "15.5.27",
     "node-cache": "5.1.2",
     "qs": "6.16.1",
@@ -31,16 +31,16 @@
     "rtl-detect": "1.1.2"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
     "@types/node": "22.20.5",
     "@types/qs": "6.15.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@types/rtl-detect": "1.0.3",
-    "autoprefixer": "10.6.1",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint-config-custom": "*",
-    "postcss": "8.5.23",
-    "tailwindcss": "3.4.19",
+    "postcss": "8.5.31",
+    "tailwindcss": "4.3.3",
     "tsconfig": "*"
   },
   "engines": {
