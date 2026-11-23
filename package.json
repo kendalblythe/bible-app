@@ -22,6 +22,7 @@
     "typescript": "6.0.3"
   },
   "resolutions": {
+    "minimatch": "11.0.9",
     "postcss": "8.5.31"
   },
   "lint-staged": {
